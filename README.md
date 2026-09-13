@@ -3,6 +3,17 @@
 一款纯前端的文字修仙放置游戏。零外部依赖、零构建步骤，源码是原生 ES Module，
 双击启动脚本即可游玩。
 
+<img width="1672" height="940" alt="xiantu" src="https://github.com/user-attachments/assets/98927254-c89c-44a2-a3bf-71e94ee60451" />
+
+下面是部分游戏内容展示
+
+<img width="2560" height="1600" alt="d8beee7d-84e0-4104-8201-23f6c6c6e726" src="https://github.com/user-attachments/assets/bf235aac-7eda-43e1-b39b-1b5358631074" />
+<img width="2560" height="1600" alt="c0e02dd6-22e5-4056-8b0b-ce8798080120" src="https://github.com/user-attachments/assets/213547d2-86ec-4959-8ac6-9e067b597e89" />
+<img width="2560" height="1600" alt="89a61324-3f6f-4120-8d8a-e2c401f733f6" src="https://github.com/user-attachments/assets/c45a090f-1930-4e8d-9ad7-bc509530cd10" />
+<img width="2560" height="1600" alt="a2b298c0-d312-4008-974b-b801b641c6c1" src="https://github.com/user-attachments/assets/2e641b4b-c01a-4da7-8e99-880853a4159a" />
+<img width="2560" height="1600" alt="23a3d8f5-165e-4ed6-afc4-a267bb757cbe" src="https://github.com/user-attachments/assets/66f6d60b-f87c-467c-a2d5-b0b71484771d" />
+
+
 ---
 
 ## 如何运行
