@@ -236,7 +236,7 @@ export const ACHIEVEMENTS = [
     check: (s) => hasQualityAtLeast(s, 5), reward: { kind: 'title', title: '鉴宝斋主', attr: 'comprehension', value: 2 } },
   { id: 'ach_fort_pill8', name: '丹药八珍', desc: '同时持有八种不同的丹药', category: 'fortune',
     check: (s) => pillKindCount(s) >= 8, reward: null },
-  // id 里的 "17" 是历史遗留：V6.1 补了四味修为丹（蕴灵/紫府/造化/大衍），总数升到 21。
+  // id 里的 "17" 是历史遗留：后来补了四味修为丹（蕴灵/紫府/造化/大衍），总数升到 21。
   // 刻意不改 id —— 成就按 id 存档，改名会让老存档重领一次悟性 +2。
   { id: 'ach_fort_pill17', name: '百草入炉', desc: '集齐全部二十一种丹药', category: 'fortune',
     check: (s) => pillKindCount(s) >= 21, reward: { kind: 'attr', attr: 'comprehension', value: 2 } },
