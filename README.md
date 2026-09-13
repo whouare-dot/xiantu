@@ -3,11 +3,13 @@
 一款纯前端的文字修仙放置游戏。零外部依赖、零构建步骤，源码是原生 ES Module，
 双击启动脚本即可游玩。
 
+### **[▶ 立即在线试玩](https://whouare-dot.github.io/xiantu/)** —— 无需安装，打开即玩
+
 <a href="https://www.bilibili.com/video/BV1zQYB6oES8">
   <img width="1672" height="940" alt="仙途 · 点击封面观看演示视频" src="https://github.com/user-attachments/assets/98927254-c89c-44a2-a3bf-71e94ee60451" />
 </a>
 
-▶ **[观看演示视频](https://www.bilibili.com/video/BV1zQYB6oES8)** · 3 分 30 秒 · B站
+▶ **[观看演示视频](https://www.bilibili.com/video/BV1zQYB6oES8)** · 3 分 30 秒 · B站 ｜ [站内播放](https://whouare-dot.github.io/xiantu/video.html)
 
 下面是部分游戏内容展示
 

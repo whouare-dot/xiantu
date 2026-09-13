@@ -127,6 +127,15 @@ function buildBody() {
       <button class="btn btn-sm btn-danger" id="btnTelemetryReset" type="button">清空</button>
     </div>
 
+    <div class="sub-title">关于</div>
+    <div class="small muted mb-1">纯前端文字修仙放置游戏 · 零依赖零构建 · MIT 开源。</div>
+    <div class="row mb-2">
+      <a class="btn btn-sm" href="https://whouare-dot.github.io/xiantu/video.html"
+        target="_blank" rel="noopener">演示视频</a>
+      <a class="btn btn-sm" href="https://github.com/whouare-dot/xiantu"
+        target="_blank" rel="noopener">GitHub 仓库</a>
+    </div>
+
     <div class="sub-title">重修</div>
     <div class="small muted mb-2">抹去这一世的修行，从头再来。此操作不可撤销。</div>
     <button class="btn btn-sm btn-danger" id="btnResetAll" type="button">重开此世</button>
