@@ -3,9 +3,6 @@
 一款纯前端的文字修仙放置游戏。零外部依赖、零构建步骤，源码是原生 ES Module，
 双击启动脚本即可游玩。
 
-当前版本 **v1.0.0**（公开前的内部里程碑为 V6.0「功课」，编号规则见
-[docs/版本规划.md](docs/版本规划.md)）。
-
 <img width="1672" height="940" alt="xiantu" src="https://github.com/user-attachments/assets/98927254-c89c-44a2-a3bf-71e94ee60451" />
 
 下面是部分游戏内容展示
@@ -16,6 +13,8 @@
 <img width="2560" height="1600" alt="a2b298c0-d312-4008-974b-b801b641c6c1" src="https://github.com/user-attachments/assets/2e641b4b-c01a-4da7-8e99-880853a4159a" />
 <img width="2560" height="1600" alt="23a3d8f5-165e-4ed6-afc4-a267bb757cbe" src="https://github.com/user-attachments/assets/66f6d60b-f87c-467c-a2d5-b0b71484771d" />
 
+
+欢迎各位道友体验并积极分享建议！
 
 ---
 
