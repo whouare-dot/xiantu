@@ -43,9 +43,6 @@ index.html                游戏外壳
 启动游戏.bat / .sh        本地服务器启动脚本
 package.json              仅用于 node 测试脚本，浏览器不读它
 
-legacy/
-  demo.html               V1.x 原始 demo（单文件 HTML，仅作对照，不参与构建）
-
 src/
   main.js                 入口：装配、主循环调度、离线结算
   core/                   不依赖 DOM 的底层设施

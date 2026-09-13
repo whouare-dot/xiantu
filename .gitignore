@@ -16,6 +16,10 @@ src/music/*
 # 编辑器本地历史（VSCode Local History 插件生成）
 .history/
 
+# 已废弃的 V1.x 单文件原型目录，文件与本地副本均已删除
+# 需要查阅时从初始提交 e09559a 取：git show e09559a:legacy/demo.html
+legacy/
+
 # 常规
 node_modules/
 .DS_Store
