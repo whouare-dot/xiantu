@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙途 · 文字修仙</title>
+    <style>
+        /* ============ 全局古风样式 ============ */
+        :root {
+            --bg-main: #f0e4c8;
+            --bg-panel: #e8d9b8;
+            --bg-deep: #d9c69a;
+            --border-main: #5d3a1a;
+            --border-light: #8b6b3d;
+            --border-dark: #3d2b1f;
+            --text-main: #2c1810;
+            --text-light: #4a3520;
+            --text-muted: #6b4f2e;
+            --accent: #b22222;
+            --accent-dark: #8b1a1a;
+            --gold: #c4922a;
+            --gold-light: #d4a54a;
+            --jade: #2d6b4f;
+            --paper: #f5ead2;
+            --btn-bg: #e0cfaa;
+            --btn-hover: #d4c198;
+            --btn-active: #c8b488;
+            --font-serif: "KaiTi", "楷体", "STKaiti", "华文楷体", "SimSun", "宋体", "Noto Serif SC", serif;
+            --font-display: "STKaiti", "KaiTi", "楷体", "华文楷体", "Noto Serif SC", serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-main);
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h80v80H0z' fill='%23f0e4c8'/%3E%3Cpath d='M0 40h80M40 0v80' stroke='%23e0d4b8' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+            font-family: var(--font-serif);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .game-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--bg-panel);
+            border: 3px solid var(--border-main);
+            outline: 2px solid var(--border-light);
+            outline-offset: -6px;
+            border-radius: 4px;
+            padding: 16px;
+            position: relative;
+            margin: 10px auto;
+        }
+        .game-header {
+            text-align: center;
+            padding: 10px 20px;
+            margin-bottom: 14px;
+            background-color: var(--bg-deep);
+            border: 2px solid var(--border-dark);
+            border-radius: 3px;
+            position: relative;
+        }
+        .game-header::before,
+        .game-header::after { content: "◆"; position: absolute; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 14px; letter-spacing: 8px; }
+        .game-header::before { left: 12px; }
+        .game-header::after { right: 12px; }
+        .game-title { font-size: 2em; font-weight: bold; color: var(--text-main); letter-spacing: 6px; font-family: var(--font-display); text-shadow: 1px 1px 0 var(--gold-light); }
+        .game-subtitle { font-size: 0.85em; color: var(--text-muted); letter-spacing: 3px; margin-top: 2px; }
+        .main-layout { display: flex; gap: 12px; flex-wrap: wrap; }
+        .left-panel { flex: 0 0 220px; min-width: 180px; }
+        .center-panel { flex: 1 1 300px; min-width: 260px; display: flex; flex-direction: column; }
+        .right-panel { flex: 0 0 280px; min-width: 220px; display: flex; flex-direction: column; }
+        .panel {
+            background-color: var(--paper);
+            border: 2px solid var(--border-light);
+            border-radius: 3px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .panel-title { font-size: 1.05em; font-weight: bold; color: var(--accent-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 5px; margin-bottom: 8px; letter-spacing: 2px; font-family: var(--font-display); }
+        .panel-title::before { content: "❖ "; font-size: 0.9em; color: var(--gold); }
+        .char-name { font-size: 1.3em; font-weight: bold; color: var(--accent-dark); letter-spacing: 2px; text-align: center; margin-bottom: 4px; font-family: var(--font-display); }
+        .char-realm { text-align: center; font-size: 0.95em; color: var(--jade); font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85em; padding: 2px 0; border-bottom: 1px dotted var(--border-light); }
+        .info-row .label { color: var(--text-muted); letter-spacing: 1px; }
+        .info-row .value { font-weight: bold; color: var(--text-main); }
+        .info-row .value.highlight { color: var(--accent); }
+        .progress-bar { width: 100%; height: 14px; background-color: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 2px; overflow: hidden; margin: 3px 0; position: relative; }
+        .progress-fill { height: 100%; background-color: var(--jade); transition: width 0.4s; border-right: 1px solid var(--border-dark); }
+        .progress-fill.breakthrough { background-color: var(--gold); }
+        .progress-text { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65em; color: var(--text-main); font-weight: bold; letter-spacing: 1px; }
+        .log-container { flex: 1; min-height: 280px; max-height: 400px; overflow-y: auto; background-color: #faf0dd; border: 1px solid var(--border-light); border-radius: 2px; padding: 8px; font-size: 0.82em; }
+        .log-entry { padding: 3px 0; border-bottom: 1px dotted #ddd0b0; color: var(--text-light); }
+        .log-entry .log-time { color: var(--text-muted); font-size: 0.85em; margin-right: 4px; }
+        .log-entry.event-good { color: var(--jade); }
+        .log-entry.event-bad { color: var(--accent); }
+        .log-entry.event-special { color: var(--gold); font-weight: bold; }
+        .log-entry.event-breakthrough { color: var(--accent-dark); font-weight: bold; font-size: 1.05em; text-align: center; padding: 6px 0; border: 1px solid var(--gold); background-color: #f8efd8; margin: 4px 0; letter-spacing: 2px; }
+        .btn { display: inline-block; padding: 6px 14px; background-color: var(--btn-bg); border: 2px solid var(--border-light); border-radius: 3px; color: var(--text-main); font-family: var(--font-serif); font-size: 0.85em; cursor: pointer; letter-spacing: 1px; transition: background-color 0.2s; text-align: center; user-select: none; text-decoration: none; }
+        .btn:hover { background-color: var(--btn-hover); border-color: var(--border-main); }
+        .btn:active { background-color: var(--btn-active); border-color: var(--border-dark); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+        .btn-primary { background-color: var(--accent); border-color: var(--accent-dark); color: #f5ead2; }
+        .btn-primary:hover { background-color: var(--accent-dark); }
+        .btn-jade { background-color: var(--jade); border-color: #1d5a3a; color: #f5ead2; }
+        .btn-jade:hover { background-color: #1d5a3a; }
+        .btn-gold { background-color: var(--gold); border-color: #a07020; color: #2c1810; }
+        .btn-gold:hover { background-color: var(--gold-light); }
+        .btn-danger { background-color: #b22222; border-color: #8b1a1a; color: #f5ead2; }
+        .btn-danger:hover { background-color: #8b1a1a; }
+        .btn-sm { padding: 3px 8px; font-size: 0.75em; }
+        .btn-block { display: block; width: 100%; margin: 4px 0; }
+        .tab-bar { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+        .tab-btn { padding: 5px 12px; background-color: var(--btn-bg); border: 1px solid var(--border-light); border-radius: 2px; cursor: pointer; font-size: 0.8em; letter-spacing: 1px; color: var(--text-muted); font-family: var(--font-serif); user-select: none; }
+        .tab-btn.active { background-color: var(--accent); border-color: var(--accent-dark); color: #f5ead2; font-weight: bold; }
+        .tab-btn:hover:not(.active) { background-color: var(--btn-hover); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .item-list { max-height: 260px; overflow-y: auto; font-size: 0.8em; }
+        .item-entry { display: flex; justify-content: space-between; align-items: center; padding: 4px 4px; border-bottom: 1px dotted var(--border-light); cursor: pointer; transition: background-color 0.15s; }
+        .item-entry:hover { background-color: #f0e0c0; }
+        .item-entry .item-name { font-weight: bold; color: var(--text-main); letter-spacing: 0.5px; }
+        .item-entry .item-quality { font-size: 0.75em; padding: 1px 5px; border-radius: 2px; margin-left: 4px; letter-spacing: 1px; }
+        .quality-fan { background-color: #d4c9a8; color: #4a3520; border: 1px solid #a09070; }
+        .quality-ling { background-color: #c8d4b8; color: #2d4a20; border: 1px solid #6b8b5d; }
+        .quality-xian { background-color: #d4b8c8; color: #4a2030; border: 1px solid #8b5d7b; }
+        .quality-shen { background-color: #c8b8d4; color: #2d204a; border: 1px solid #6b5d8b; }
+        .quality-sheng { background-color: #d4c8b0; color: #4a3520; border: 1px solid #a09070; font-weight: bold; }
+        .item-entry .item-info { color: var(--text-muted); font-size: 0.8em; }
+        .item-entry .item-action { margin-left: 6px; }
+        .item-entry.equipped { background-color: #e8f0d8; border-left: 3px solid var(--jade); }
+        .item-entry.equipped .item-name::after { content: "〔已装备〕"; font-size: 0.7em; color: var(--jade); margin-left: 4px; letter-spacing: 0; }
+        .encounter-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(30, 20, 10, 0.7); z-index: 100; justify-content: center; align-items: center; }
+        .encounter-overlay.show { display: flex; }
+        .encounter-box { background-color: var(--paper); border: 4px solid var(--border-main); outline: 2px solid var(--border-light); outline-offset: -6px; border-radius: 4px; padding: 24px; max-width: 520px; width: 90%; text-align: center; position: relative; margin: 20px; }
+        .encounter-box .encounter-title { font-size: 1.3em; font-weight: bold; color: var(--accent-dark); letter-spacing: 3px; margin-bottom: 10px; font-family: var(--font-display); }
+        .encounter-box .encounter-desc { font-size: 0.9em; color: var(--text-light); margin-bottom: 14px; line-height: 1.7; letter-spacing: 1px; text-align: left; padding: 8px; background-color: #faf0dd; border-left: 3px solid var(--gold); }
+        .encounter-box .encounter-choices { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .breakthrough-flash { animation: btFlash 1.2s ease-in-out 2; }
+        @keyframes btFlash { 0%, 100% { box-shadow: 0 0 0 rgba(180, 40, 40, 0); } 50% { box-shadow: 0 0 20px rgba(180, 40, 40, 0.6); border-color: var(--accent); } }
+        .log-container::-webkit-scrollbar, .item-list::-webkit-scrollbar { width: 6px; }
+        .log-container::-webkit-scrollbar-track, .item-list::-webkit-scrollbar-track { background: var(--bg-deep); border-radius: 3px; }
+        .log-container::-webkit-scrollbar-thumb, .item-list::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+        .log-container::-webkit-scrollbar-thumb:hover, .item-list::-webkit-scrollbar-thumb:hover { background: var(--border-main); }
+        @media (max-width: 768px) { .main-layout { flex-direction: column; } .left-panel, .right-panel { flex: 1 1 auto; min-width: auto; } .center-panel { order: -1; } .game-title { font-size: 1.4em; letter-spacing: 3px; } .game-container { padding: 8px; } .panel { padding: 8px; } }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-muted); }
+        .mt-1 { margin-top: 4px; }
+        .mt-2 { margin-top: 8px; }
+        .mb-1 { margin-bottom: 4px; }
+        .mb-2 { margin-bottom: 8px; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .gap-1 { gap: 4px; }
+        .gap-2 { gap: 8px; }
+        .divider { text-align: center; color: var(--gold); letter-spacing: 4px; font-size: 0.7em; margin: 6px 0; border: none; border-top: 1px solid var(--border-light); line-height: 0; }
+        .divider span { background-color: var(--paper); padding: 0 8px; }
+        .realm-badge { display: inline-block; padding: 2px 10px; background-color: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 2px; font-weight: bold; letter-spacing: 2px; color: var(--accent-dark); font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="gameContainer">
+        <div class="game-header">
+            <div class="game-title">仙 途</div>
+            <div class="game-subtitle">—— 文字修仙 · 放置悟道 ——</div>
+        </div>
+
+        <div class="main-layout">
+            <div class="left-panel">
+                <div class="panel" id="charPanel">
+                    <div class="panel-title">道 者</div>
+                    <div class="char-name" id="charName">无名散修</div>
+                    <div class="char-realm"><span class="realm-badge" id="realmBadge">炼气一层</span></div>
+                    <div class="divider"><span>◆</span></div>
+                    <div class="info-row"><span class="label">寿元</span><span class="value" id="lifespan">100载</span></div>
+                    <div class="info-row"><span class="label">灵根</span><span class="value highlight" id="spiritRoot">-</span></div>
+                    <div class="info-row"><span class="label">气运</span><span class="value" id="luckValue">-</span></div>
+                    <div class="info-row"><span class="label">灵石</span><span class="value highlight" id="spiritStones">0</span></div>
+                    <div class="divider"><span>◆</span></div>
+                    <div class="info-row"><span class="label">修为</span><span class="value" id="cultivationText">0 / 100</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="cultivationBar" style="width:0%;"></div><div class="progress-text" id="cultivationBarText">0%</div></div>
+                    <div class="info-row mt-1"><span class="label">气血</span><span class="value" id="healthText">100 / 100</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="healthBar" style="width:100%; background-color:#b22222;"></div><div class="progress-text" id="healthBarText">100%</div></div>
+                    <div class="divider"><span>◆</span></div>
+                    <div class="info-row"><span class="label">攻击</span><span class="value" id="atkValue">5</span></div>
+                    <div class="info-row"><span class="label">防御</span><span class="value" id="defValue">3</span></div>
+                    <div class="info-row"><span class="label">修炼速率</span><span class="value highlight" id="cultSpeed">10/息</span></div>
+                </div>
+            </div>
+
+            <div class="center-panel">
+                <div class="panel" style="flex:1; display:flex; flex-direction:column;">
+                    <div class="panel-title">修 行 日 志</div>
+                    <div class="log-container" id="logContainer"><div class="log-entry">【启程】你踏上修仙之路，前路茫茫，且行且悟。</div></div>
+                    <div class="flex-between mt-1" style="gap:8px;">
+                        <button class="btn btn-sm" id="btnClearLog" title="清除日志">清空</button>
+                        <span class="text-muted" style="font-size:0.7em;" id="statusText">修炼中...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="panel">
+                    <div class="tab-bar">
+                        <button class="tab-btn active" data-tab="tab-cultivate">修炼</button>
+                        <button class="tab-btn" data-tab="tab-inventory">背包</button>
+                        <button class="tab-btn" data-tab="tab-shop">坊市</button>
+                        <button class="tab-btn" data-tab="tab-equip">装备</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-cultivate">
+                        <button class="btn btn-primary btn-block" id="btnBreakthrough">⚡ 突破境界</button>
+                        <div class="text-center mt-1 text-muted" style="font-size:0.75em;" id="breakthroughHint">修为达到一定程度方可突破</div>
+                        <button class="btn btn-gold btn-block mt-2" id="btnExplore">🗺️ 外出探险</button>
+                        <button class="btn btn-jade btn-block mt-2" id="btnMeditate">🧘 打坐恢复</button>
+                        <div class="divider mt-2"><span>◆</span></div>
+                        <div class="flex-between mt-1">
+                            <span style="font-size:0.8em;">自动突破：</span>
+                            <button class="btn btn-sm btn-gold" id="btnAutoBreakthrough">未开启</button>
+                        </div>
+                        <div class="text-center mt-1 text-muted" style="font-size:0.7em;" id="autoHint">金丹期后可开启自动突破</div>
+                        <div class="divider mt-2"><span>◆</span></div>
+                        <div style="font-size:0.8em;" id="cultivationDetail">基础速率：10/息<br>灵根加成：--<br>功法加成：--<br>装备加成：--</div>
+                    </div>
+
+                    <div class="tab-content" id="tab-inventory">
+                        <div class="flex-between mb-1"><span style="font-size:0.85em; font-weight:bold;">物品清单</span><span class="text-muted" style="font-size:0.7em;">点击物品使用/装备</span></div>
+                        <div class="item-list" id="inventoryList"><div class="text-center text-muted" style="padding:10px;">空空如也</div></div>
+                    </div>
+
+                    <div class="tab-content" id="tab-shop">
+                        <div class="flex-between mb-1"><span style="font-size:0.85em; font-weight:bold;">坊市</span><span class="text-muted" style="font-size:0.7em;">灵石购得所需</span></div>
+                        <div class="item-list" id="shopList"></div>
+                    </div>
+
+                    <div class="tab-content" id="tab-equip">
+                        <div style="font-size:0.85em; margin-bottom:6px;">
+                            <div class="info-row"><span class="label">武器</span><span id="equipWeapon" class="value">未装备</span></div>
+                            <div class="info-row"><span class="label">防具</span><span id="equipArmor" class="value">未装备</span></div>
+                            <div class="info-row"><span class="label">法宝</span><span id="equipTreasure" class="value">未装备</span></div>
+                            <div class="info-row"><span class="label">功法</span><span id="equipTechnique" class="value">未装备</span></div>
+                        </div>
+                        <div class="divider"><span>◆</span></div>
+                        <div class="text-muted" style="font-size:0.7em;">在背包中点击装备可替换当前装备</div>
+                    </div>
+                </div>
+
+                <div class="panel" style="text-align:center;">
+                    <button class="btn btn-sm" id="btnSave">📜 手动存档</button>
+                    <button class="btn btn-sm" id="btnReset" style="margin-left:6px;">🗑 重置</button>
+                    <div class="text-muted mt-1" style="font-size:0.65em;" id="lastSaveTime">自动存档：每60秒</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="encounter-overlay" id="encounterOverlay">
+        <div class="encounter-box" id="encounterBox">
+            <div class="encounter-title" id="encounterTitle">奇遇</div>
+            <div class="encounter-desc" id="encounterDesc"></div>
+            <div class="encounter-choices" id="encounterChoices"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 游戏数据定义 ====================
+        const REALMS = [
+            { name: '炼气一层', level: 1, needCult: 80, needPill: null, breakChance: 1.0, lifespan: 100, desc: '初入仙途，气息微弱' },
+            { name: '炼气二层', level: 2, needCult: 150, needPill: null, breakChance: 1.0, lifespan: 110, desc: '气感渐强，经脉初通' },
+            { name: '炼气三层', level: 3, needCult: 300, needPill: null, breakChance: 1.0, lifespan: 120, desc: '灵气充盈，体魄渐固' },
+            { name: '炼气四层', level: 4, needCult: 600, needPill: null, breakChance: 1.0, lifespan: 130, desc: '气行周天，初窥门径' },
+            { name: '炼气五层', level: 5, needCult: 1200, needPill: null, breakChance: 1.0, lifespan: 140, desc: '五气朝元，根基渐稳' },
+            { name: '炼气六层', level: 6, needCult: 2200, needPill: null, breakChance: 1.0, lifespan: 150, desc: '六腑通明，气机绵长' },
+            { name: '炼气七层', level: 7, needCult: 4000, needPill: null, breakChance: 1.0, lifespan: 160, desc: '七窍玲珑，感悟天地' },
+            { name: '炼气八层', level: 8, needCult: 7500, needPill: null, breakChance: 1.0, lifespan: 170, desc: '八方灵气，汇聚丹田' },
+            { name: '炼气九层', level: 9, needCult: 13000, needPill: null, breakChance: 1.0, lifespan: 180, desc: '九转功成，炼气巅峰' },
+            { name: '筑基初期', level: 10, needCult: 25000, needPill: '筑基丹', breakChance: 0.75, lifespan: 250, desc: '筑基有成，脱胎换骨' },
+            { name: '筑基中期', level: 11, needCult: 48000, needPill: null, breakChance: 0.9, lifespan: 280, desc: '道基稳固，灵台清明' },
+            { name: '筑基后期', level: 12, needCult: 85000, needPill: null, breakChance: 0.9, lifespan: 300, desc: '筑基圆满，金丹在望' },
+            { name: '金丹初期', level: 13, needCult: 180000, needPill: '结金丹', breakChance: 0.6, lifespan: 500, desc: '金丹已成，寿元大增' },
+            { name: '金丹中期', level: 14, needCult: 350000, needPill: null, breakChance: 0.85, lifespan: 550, desc: '金丹温养，道韵渐生' },
+            { name: '金丹后期', level: 15, needCult: 650000, needPill: null, breakChance: 0.85, lifespan: 600, desc: '金丹圆满，元婴待成' },
+            { name: '元婴初期', level: 16, needCult: 1200000, needPill: '凝婴丹', breakChance: 0.5, lifespan: 1000, desc: '元婴出窍，神通初显' },
+            { name: '元婴中期', level: 17, needCult: 2200000, needPill: null, breakChance: 0.8, lifespan: 1100, desc: '元婴稳固，法力无边' },
+            { name: '元婴后期', level: 18, needCult: 4200000, needPill: null, breakChance: 0.8, lifespan: 1200, desc: '元婴大成，化神可期' },
+            { name: '化神初期', level: 19, needCult: 8000000, needPill: '化神丹', breakChance: 0.4, lifespan: 2000, desc: '化神入虚，天人合一' },
+            { name: '化神中期', level: 20, needCult: 15000000, needPill: null, breakChance: 0.75, lifespan: 2200, desc: '神游太虚，万法归一' },
+            { name: '化神后期', level: 21, needCult: 28000000, needPill: null, breakChance: 0.75, lifespan: 2500, desc: '化神巅峰，炼虚在望' },
+            { name: '炼虚期', level: 22, needCult: 55000000, needPill: null, breakChance: 0.4, lifespan: 5000, desc: '炼虚合道，超凡入圣' },
+            { name: '合体期', level: 23, needCult: 100000000, needPill: null, breakChance: 0.35, lifespan: 8000, desc: '合体大成，神通无量' },
+            { name: '大乘期', level: 24, needCult: 200000000, needPill: null, breakChance: 0.3, lifespan: 12000, desc: '大乘圆满，渡劫飞升' },
+            { name: '渡劫期', level: 25, needCult: 400000000, needPill: null, breakChance: 0.25, lifespan: 20000, desc: '天劫将至，生死一线' },
+            { name: '飞升成仙', level: 26, needCult: Infinity, needPill: null, breakChance: 1.0, lifespan: 99999, desc: '白日飞升，位列仙班' },
+        ];
+
+        const SPIRIT_ROOTS = [
+            { name: '天灵根', mult: 2.5, desc: '万中无一，修炼奇速' },
+            { name: '地灵根', mult: 1.8, desc: '上等灵根，天赋异禀' },
+            { name: '玄灵根', mult: 1.3, desc: '中等灵根，中规中矩' },
+            { name: '黄灵根', mult: 1.0, desc: '下等灵根，勤能补拙' },
+            { name: '杂灵根', mult: 0.7, desc: '灵根驳杂，修仙艰难' },
+        ];
+
+        const WEAPONS = [
+            { id: 'w1', type: 'weapon', name: '青锋剑', quality: '凡品', qualityClass: 'quality-fan', atk: 8, price: 80, desc: '寻常铁剑，锋利有余' },
+            { id: 'w2', type: 'weapon', name: '精钢剑', quality: '凡品', qualityClass: 'quality-fan', atk: 15, price: 200, desc: '精钢打造，削铁如泥' },
+            { id: 'w3', type: 'weapon', name: '紫电剑', quality: '灵品', qualityClass: 'quality-ling', atk: 35, price: 600, desc: '剑身紫电流转，灵性初显' },
+            { id: 'w4', type: 'weapon', name: '太乙剑', quality: '仙品', qualityClass: 'quality-xian', atk: 80, price: 2000, desc: '太乙真传，剑气纵横' },
+            { id: 'w5', type: 'weapon', name: '诛仙剑', quality: '神品', qualityClass: 'quality-shen', atk: 180, price: 6000, desc: '上古神兵，诛仙灭魔' },
+            { id: 'w6', type: 'weapon', name: '轩辕剑', quality: '圣品', qualityClass: 'quality-sheng', atk: 400, price: 20000, desc: '人皇圣剑，万古第一' },
+        ];
+
+        const ARMORS = [
+            { id: 'a1', type: 'armor', name: '布衣', quality: '凡品', qualityClass: 'quality-fan', def: 3, hp: 0, price: 30, desc: '粗布所制，聊胜于无' },
+            { id: 'a2', type: 'armor', name: '道袍', quality: '凡品', qualityClass: 'quality-fan', def: 8, hp: 10, price: 120, desc: '普通道袍，避尘防污' },
+            { id: 'a3', type: 'armor', name: '金丝甲', quality: '灵品', qualityClass: 'quality-ling', def: 25, hp: 30, price: 500, desc: '金丝编织，刀枪不入' },
+            { id: 'a4', type: 'armor', name: '玄武甲', quality: '仙品', qualityClass: 'quality-xian', def: 60, hp: 80, price: 1800, desc: '玄武鳞片所制，坚不可摧' },
+            { id: 'a5', type: 'armor', name: '太极道袍', quality: '神品', qualityClass: 'quality-shen', def: 130, hp: 200, price: 5500, desc: '太极护体，万法不侵' },
+        ];
+
+        const TREASURES = [
+            { id: 't1', type: 'treasure', name: '护心镜', quality: '凡品', qualityClass: 'quality-fan', def: 2, hp: 20, price: 60, desc: '铜镜护心，聊以自保' },
+            { id: 't2', type: 'treasure', name: '乾坤袋', quality: '灵品', qualityClass: 'quality-ling', def: 0, hp: 10, price: 400, desc: '内有乾坤，灵石收益翻倍', effect: 'stoneDouble' },
+            { id: 't3', type: 'treasure', name: '混天绫', quality: '仙品', qualityClass: 'quality-xian', def: 35, hp: 60, price: 1500, desc: '红绫飞舞，攻守兼备' },
+            { id: 't4', type: 'treasure', name: '九龙神火罩', quality: '神品', qualityClass: 'quality-shen', def: 50, hp: 100, atk: 40, price: 4500, desc: '九龙环绕，神火护体' },
+        ];
+
+        const TECHNIQUES = [
+            { id: 'f1', type: 'technique', name: '吐纳术', quality: '凡品', qualityClass: 'quality-fan', speedMult: 1.1, price: 100, desc: '基础吐纳，平心静气' },
+            { id: 'f2', type: 'technique', name: '五行诀', quality: '凡品', qualityClass: 'quality-fan', speedMult: 1.3, price: 350, desc: '五行轮转，气机不绝' },
+            { id: 'f3', type: 'technique', name: '太虚剑诀', quality: '灵品', qualityClass: 'quality-ling', speedMult: 1.5, atkBonus: 15, price: 800, desc: '剑意入道，虚中有实' },
+            { id: 'f4', type: 'technique', name: '九转金丹诀', quality: '仙品', qualityClass: 'quality-xian', speedMult: 2.0, price: 2500, desc: '九转功成，金丹自凝' },
+            { id: 'f5', type: 'technique', name: '混沌无极功', quality: '神品', qualityClass: 'quality-shen', speedMult: 3.0, price: 7000, desc: '混沌未分，无极而生', breakBonus: 0.2 },
+        ];
+
+        const PILLS = [
+            { id: 'p1', type: 'pill', name: '聚气丹', quality: '凡品', qualityClass: 'quality-fan', effect: 'cult', value: 200, price: 50, desc: '凝聚灵气，增加修为' },
+            { id: 'p2', type: 'pill', name: '筑基丹', quality: '灵品', qualityClass: 'quality-ling', effect: 'breakPill', realmRequired: '筑基初期', price: 500, desc: '突破筑基期必需' },
+            { id: 'p3', type: 'pill', name: '结金丹', quality: '仙品', qualityClass: 'quality-xian', effect: 'breakPill', realmRequired: '金丹初期', price: 2000, desc: '突破金丹期必需' },
+            { id: 'p4', type: 'pill', name: '凝婴丹', quality: '仙品', qualityClass: 'quality-xian', effect: 'breakPill', realmRequired: '元婴初期', price: 5000, desc: '突破元婴期必需' },
+            { id: 'p5', type: 'pill', name: '化神丹', quality: '神品', qualityClass: 'quality-shen', effect: 'breakPill', realmRequired: '化神初期', price: 12000, desc: '突破化神期必需' },
+            { id: 'p6', type: 'pill', name: '还魂丹', quality: '灵品', qualityClass: 'quality-ling', effect: 'heal', value: 100, price: 150, desc: '恢复大量气血' },
+            { id: 'p7', type: 'pill', name: '洗髓丹', quality: '灵品', qualityClass: 'quality-ling', effect: 'root', price: 800, desc: '洗经伐髓，有几率提升灵根' },
+        ];
+
+        // ==================== 奇遇事件池 ====================
+        const ENCOUNTERS_GOOD = [
+            { title: '洞府奇遇', desc: '行至一处隐秘山谷，发现前辈遗留洞府！', choices: [
+                { text: '入内探索', result: 'good', effect: () => { gainStones(randInt(80, 300)); gainLog('发现前辈洞府，获得大量灵石！', 'event-good'); } },
+                { text: '在外等候', result: 'neutral', effect: () => { gainLog('你选择不冒险，继续前行。', 'event-good'); } },
+            ]},
+            { title: '散修赠礼', desc: '路遇一位和善的散修，对方愿赠你一些丹药。', choices: [
+                { text: '欣然接受', result: 'good', effect: () => { addPill('聚气丹', randInt(1, 3)); gainLog('获得聚气丹！', 'event-good'); } },
+                { text: '婉言谢绝', result: 'neutral', effect: () => { gainLog('你婉言谢绝，散修微笑离去。', 'event-good'); } },
+            ]},
+            { title: '灵药发现', desc: '山崖间发现一株灵光闪烁的草药！', choices: [
+                { text: '采摘', result: 'good', effect: () => { const c = randInt(50, 400); gainCult(c); gainLog('采摘灵药，获得' + c + '点修为！', 'event-good'); } },
+                { text: '不采，留待有缘', result: 'good', effect: () => { gainLuck(2); gainLog('你心存善念，气运+2！', 'event-good'); } },
+            ]},
+            { title: '传承石刻', desc: '发现一面刻满古老文字的崖壁，似有功法传承。', choices: [
+                { text: '仔细参悟', result: 'good', effect: () => { gainCult(randInt(100, 600)); gainLog('参悟传承，修为大涨！', 'event-good'); } },
+                { text: '记录后离开', result: 'good', effect: () => { gainStones(50); gainLog('记录传承，获得一些灵石。', 'event-good'); } },
+            ]},
+            { title: '灵兽认主', desc: '一只通灵小兽亲近于你，似乎愿意追随。', choices: [
+                { text: '收留灵兽', result: 'good', effect: () => { gainLuck(3); gainLog('灵兽相伴，气运+3！', 'event-good'); } },
+                { text: '放归山林', result: 'good', effect: () => { gainCult(150); gainLog('放生灵兽，心境通明，修为+150！', 'event-good'); } },
+            ]},
+            { title: '坊市捡漏', desc: '在坊市角落发现一件被埋没的宝物，价格低廉。', choices: [
+                { text: '买下宝物', result: 'good', effect: () => { gainStones(randInt(100, 400)); gainLog('低价买下宝物，转手获利！', 'event-good'); } },
+                { text: '提醒摊主', result: 'good', effect: () => { gainLuck(2); gainLog('你提醒摊主，对方感激不尽，气运+2！', 'event-good'); } },
+            ]},
+            { title: '仙人指路', desc: '一位白须老者为你指点迷津，似有深意。', choices: [
+                { text: '虚心求教', result: 'good', effect: () => { gainCult(300); gainLuck(1); gainLog('仙人指路，茅塞顿开，修为+300！', 'event-good'); } },
+                { text: '拜谢离开', result: 'good', effect: () => { gainLog('你拜谢老者，继续前行。', 'event-good'); } },
+            ]},
+            { title: '灵泉沐浴', desc: '发现一眼灵气四溢的灵泉！', choices: [
+                { text: '入泉修炼', result: 'good', effect: () => { const c = randInt(200, 600); gainCult(c); hp = Math.min(maxHp, hp + 50); gainLog('灵泉中修炼，修为+' + c + '，气血恢复50！', 'event-good'); } },
+                { text: '取水留存', result: 'good', effect: () => { gainStones(100); gainLog('取走灵泉水，售得灵石100。', 'event-good'); } },
+            ]},
+            { title: '古战场英魂', desc: '路过古战场，遇英魂不散，似有执念。', choices: [
+                { text: '超度英魂', result: 'good', effect: () => { gainLuck(4); gainCult(150); gainLog('超度英魂，获得功德，气运+4，修为+150！', 'event-good'); } },
+                { text: '绕道而行', result: 'neutral', effect: () => { gainLog('你绕道避开，心中不安。', 'event-good'); } },
+            ]},
+            { title: '机缘天降', desc: '一道金光落入怀中，竟是一件法宝！', choices: [
+                { text: '收入囊中', result: 'good', effect: () => { const randomItem = getRandomItemFromList(TREASURES, ['凡品','灵品']); addItemToInventory(randomItem); gainLog('获得法宝：' + randomItem.name + '！', 'event-good'); } },
+                { text: '谨慎查看', result: 'good', effect: () => { gainStones(50); gainLog('仔细查看后，发现是一块稀有矿石，换得灵石50。', 'event-good'); } },
+            ]},
+            { title: '隐世高人', desc: '一位隐世高人见你根骨清奇，赠予一件兵器。', choices: [
+                { text: '跪谢收下', result: 'good', effect: () => { const randomItem = getRandomItemFromList(WEAPONS, ['凡品','灵品']); addItemToInventory(randomItem); gainLog('获得武器：' + randomItem.name + '！', 'event-good'); } },
+                { text: '无功不受禄', result: 'good', effect: () => { gainLuck(2); gainLog('你婉拒，高人欣慰，气运+2。', 'event-good'); } },
+            ]},
+            { title: '功法秘洞', desc: '洞壁上刻着一门失传功法！', choices: [
+                { text: '认真抄录', result: 'good', effect: () => { const randomItem = getRandomItemFromList(TECHNIQUES, ['凡品','灵品']); addItemToInventory(randomItem); gainLog('获得功法：' + randomItem.name + '！', 'event-good'); } },
+                { text: '直接参悟', result: 'good', effect: () => { gainCult(200); gainLog('参悟功法，修为+200。', 'event-good'); } },
+            ]},
+        ];
+
+        const ENCOUNTERS_BAD = [
+            { title: '妖兽袭击', desc: '山道间突遇妖兽，凶性大发！', choices: [
+                { text: '奋力搏杀', result: 'battle', effect: null, battlePower: 35 },
+                { text: '迅速逃离', result: 'neutral', effect: () => { if (Math.random() < 0.5) { const dmg = Math.floor(hp * 0.15); hp = Math.max(1, hp - dmg); gainLog('逃离时被妖兽所伤，气血-' + dmg, 'event-bad'); } else { gainLog('你成功逃离妖兽追击。', 'event-good'); } } },
+            ]},
+            { title: '劫修拦路', desc: '一伙劫修拦住去路，要你交出灵石！', choices: [
+                { text: '拼死抵抗', result: 'battle', effect: null, battlePower: 45 },
+                { text: '破财消灾', result: 'neutral', effect: () => { const loss = Math.min(stones, Math.floor(stones * 0.3) + 20); stones -= loss; gainLog('你交出' + loss + '灵石，劫修散去。', 'event-bad'); updateUI(); } },
+            ]},
+            { title: '走火入魔', desc: '修炼时气息不稳，有走火入魔之兆！', choices: [
+                { text: '强行压制', result: 'neutral', effect: () => { if (Math.random() < 0.4) { const loss = Math.floor(cult * 0.2); cult -= loss; gainLog('压制失败，修为损失' + loss + '！', 'event-bad'); } else { gainLog('你成功压制了紊乱的气息。', 'event-good'); } } },
+                { text: '慢慢疏导', result: 'neutral', effect: () => { const loss = Math.floor(cult * 0.1); cult -= loss; gainLog('疏导中损失了' + loss + '修为。', 'event-bad'); } },
+            ]},
+            { title: '天灾骤降', desc: '天降暴雨引发山洪，你被困于山洞。', choices: [
+                { text: '闭关等待', result: 'neutral', effect: () => { gainCult(80); gainLog('被困山中，反而静心修炼+80修为。', 'event-good'); } },
+                { text: '冒雨赶路', result: 'neutral', effect: () => { const dmg = Math.floor(hp * 0.12); hp = Math.max(1, hp - dmg); gainLog('冒雨赶路，受寒损失气血-' + dmg, 'event-bad'); } },
+            ]},
+            { title: '误入幻阵', desc: '你陷入一片诡异幻阵，难以分辨虚实。', choices: [
+                { text: '静心破阵', result: 'neutral', effect: () => { if (Math.random() < 0.6) { gainLuck(1); gainLog('你静心冥想，破阵而出，气运+1。', 'event-good'); } else { const loss = Math.floor(cult * 0.15); cult -= loss; gainLog('破阵失败，心神受损，修为-' + loss + '。', 'event-bad'); } } },
+                { text: '大声呼救', result: 'neutral', effect: () => { if (Math.random() < 0.3) { gainLog('有人闻声而来，将你救出。', 'event-good'); } else { const dmg = Math.floor(hp * 0.1); hp = Math.max(1, hp - dmg); gainLog('无人应答，你耗费精力，气血-' + dmg + '。', 'event-bad'); } } },
+            ]},
+            { title: '剧毒瘴气', desc: '误入一片瘴气弥漫的沼泽，毒气侵体。', choices: [
+                { text: '服用解毒丹', result: 'neutral', effect: () => { if (hasPill('还魂丹')) { consumePill('还魂丹'); gainLog('服用还魂丹，毒气尽解。', 'event-good'); } else { const dmg = Math.floor(hp * 0.2); hp = Math.max(1, hp - dmg); gainLog('没有解毒丹药，气血大损-' + dmg + '。', 'event-bad'); } } },
+                { text: '强行穿越', result: 'neutral', effect: () => { const dmg = Math.floor(hp * 0.25); hp = Math.max(1, hp - dmg); gainLog('强行穿越瘴气，气血-' + dmg + '。', 'event-bad'); } },
+            ]},
+            { title: '心魔滋生', desc: '修炼中贪念骤起，心魔入侵！', choices: [
+                { text: '斩杀心魔', result: 'battle', effect: null, battlePower: 30 },
+                { text: '默念清心诀', result: 'neutral', effect: () => { if (Math.random() < 0.6) { gainLuck(1); gainLog('清心诀压制心魔，气运+1。', 'event-good'); } else { const loss = Math.floor(cult * 0.1); cult -= loss; gainLog('心魔反噬，修为-' + loss + '。', 'event-bad'); } } },
+            ]},
+            { title: '遭遇仇家', desc: '昔日结怨的修士带人围堵你！', choices: [
+                { text: '拼死一战', result: 'battle', effect: null, battlePower: 55 },
+                { text: '低声下气', result: 'neutral', effect: () => { const loss = Math.floor(stones * 0.4); stones -= loss; gainLog('你破财消灾，损失灵石' + loss + '。', 'event-bad'); } },
+            ]},
+        ];
+
+        const ENCOUNTERS_NEUTRAL = [
+            { title: '游方道人', desc: '一位游方道人与你攀谈，讲述修仙见闻。', choices: [
+                { text: '虚心请教', result: 'neutral', effect: () => { gainCult(40); gainLog('听道人讲道，修为+40。', 'event-good'); } },
+                { text: '闲谈几句', result: 'neutral', effect: () => { gainLog('你与道人闲谈，心情舒畅。', 'event-good'); } },
+            ]},
+            { title: '凡人城池', desc: '路过一座凡人城池，热闹非凡。', choices: [
+                { text: '入城歇息', result: 'neutral', effect: () => { hp = Math.min(maxHp, hp + 40); gainLog('入城休整，气血恢复40。', 'event-good'); } },
+                { text: '绕城而过', result: 'neutral', effect: () => { gainLog('你绕城而过，继续赶路。', 'event-good'); } },
+            ]},
+            { title: '同门相遇', desc: '遇到一位同门修士，相谈甚欢。', choices: [
+                { text: '交换心得', result: 'neutral', effect: () => { gainCult(30); gainLog('与同门交流，修为+30。', 'event-good'); } },
+                { text: '切磋比试', result: 'neutral', effect: () => { const dmg = Math.floor(Math.random() * 15) + 5; hp = Math.max(1, hp - dmg); gainLog('切磋中受伤，气血-' + dmg + '。', 'event-bad'); } },
+            ]},
+            { title: '山间清泉', desc: '发现一处清澈山泉，可解乏。', choices: [
+                { text: '饮水休息', result: 'neutral', effect: () => { hp = Math.min(maxHp, hp + 25); gainLog('山泉甘甜，气血恢复25。', 'event-good'); } },
+                { text: '继续赶路', result: 'neutral', effect: () => { gainLog('你未作停留，继续前行。', 'event-good'); } },
+            ]},
+            { title: '偶遇商队', desc: '一支商队经过，可结伴同行。', choices: [
+                { text: '随队同行', result: 'neutral', effect: () => { gainStones(20); gainLog('护送商队，获得报酬灵石20。', 'event-good'); } },
+                { text: '独自上路', result: 'neutral', effect: () => { gainLog('你谢绝邀请，独自前行。', 'event-good'); } },
+            ]},
+            { title: '古庙废墟', desc: '一座破败古庙，似乎有香火残留。', choices: [
+                { text: '进去参拜', result: 'neutral', effect: () => { gainLuck(1); gainLog('诚心参拜，心有所感，气运+1。', 'event-good'); } },
+                { text: '绕行离开', result: 'neutral', effect: () => { gainLog('你绕行离去，不愿打扰。', 'event-good'); } },
+            ]},
+            { title: '灵田稻香', desc: '路过一片灵田，稻香四溢，农夫正在劳作。', choices: [
+                { text: '帮忙劳作', result: 'neutral', effect: () => { gainCult(25); gainLog('帮忙劳作，体悟自然，修为+25。', 'event-good'); } },
+                { text: '询问灵米', result: 'neutral', effect: () => { gainStones(30); gainLog('购买灵米转卖，赚得灵石30。', 'event-good'); } },
+            ]},
+            { title: '悬崖古松', desc: '一株古松生于悬崖，姿态奇绝，似有道韵。', choices: [
+                { text: '树下悟道', result: 'neutral', effect: () => { gainCult(60); gainLog('古松之下，你静坐悟道，修为+60。', 'event-good'); } },
+                { text: '观赏离去', result: 'neutral', effect: () => { gainLog('你欣赏片刻，心旷神怡。', 'event-good'); } },
+            ]},
+            { title: '市井奇闻', desc: '茶楼中众人谈论修仙界奇闻异事。', choices: [
+                { text: '坐下听书', result: 'neutral', effect: () => { gainLuck(1); gainLog('听闻奇闻，增长见识，气运+1。', 'event-good'); } },
+                { text: '买份地图', result: 'neutral', effect: () => { gainStones(15); gainLog('你买了一份地图，发现一处隐秘地点，转手获利15灵石。', 'event-good'); } },
+            ]},
+        ];
+
+        // ==================== 探险事件池 ====================
+        const EXPLORE_EVENTS = [
+            { type: 'item', title: '发现遗宝', desc: '你在一处废墟中发现一件被遗忘的宝物。', effect: () => { 
+                const pool = [...WEAPONS, ...ARMORS, ...TREASURES].filter(item => ['凡品','灵品'].includes(item.quality));
+                const item = pool[randInt(0, pool.length-1)];
+                addItemToInventory(item);
+                gainLog('探险获得：' + item.name + '！', 'event-good');
+            }},
+            { type: 'item', title: '灵药采摘', desc: '你发现一株珍惜灵药。', effect: () => {
+                const c = randInt(100, 500);
+                gainCult(c);
+                gainLog('服下灵药，修为+' + c + '。', 'event-good');
+            }},
+            { type: 'item', title: '矿脉偶遇', desc: '你发现一处灵石矿脉，挖掘一番。', effect: () => {
+                const s = randInt(50, 300);
+                gainStones(s);
+                gainLog('挖到灵石，获得' + s + '灵石。', 'event-good');
+            }},
+            { type: 'item', title: '功法残卷', desc: '你拾得一页功法残卷。', effect: () => {
+                const tech = TECHNIQUES[randInt(0, TECHNIQUES.length-1)];
+                addItemToInventory(tech);
+                gainLog('获得功法：' + tech.name + '！', 'event-good');
+            }},
+            { type: 'battle', title: '遭遇妖兽', desc: '你惊动了一只凶猛的妖兽！', battlePower: randInt(20, 60) },
+            { type: 'battle', title: '邪修偷袭', desc: '一名邪修向你发起偷袭！', battlePower: randInt(30, 70) },
+            { type: 'encounter', encounterPool: ENCOUNTERS_GOOD, weight: 0.4 },
+            { type: 'encounter', encounterPool: ENCOUNTERS_BAD, weight: 0.2 },
+            { type: 'encounter', encounterPool: ENCOUNTERS_NEUTRAL, weight: 0.4 },
+        ];
+
+        // ==================== 辅助函数 ====================
+        function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+        function getRealm() { return REALMS[Math.min(realmIndex, REALMS.length - 1)]; }
+        function getNextRealm() { return (realmIndex + 1 >= REALMS.length) ? null : REALMS[realmIndex + 1]; }
+        function getEquippedWeapon() { return WEAPONS.find(w => w.id === equipped.weapon) || null; }
+        function getEquippedArmor() { return ARMORS.find(a => a.id === equipped.armor) || null; }
+        function getEquippedTreasure() { return TREASURES.find(t => t.id === equipped.treasure) || null; }
+        function getEquippedTechnique() { return TECHNIQUES.find(f => f.id === equipped.technique) || null; }
+
+        function calcMaxHp() {
+            let m = 100 + realmIndex * 25;
+            const armor = getEquippedArmor();
+            const treasure = getEquippedTreasure();
+            if (armor && armor.hp) m += armor.hp;
+            if (treasure && treasure.hp) m += treasure.hp;
+            return m;
+        }
+        function calcAtk() {
+            let a = baseAtk + realmIndex * 3;
+            const weapon = getEquippedWeapon();
+            const treasure = getEquippedTreasure();
+            const tech = getEquippedTechnique();
+            if (weapon && weapon.atk) a += weapon.atk;
+            if (treasure && treasure.atk) a += treasure.atk;
+            if (tech && tech.atkBonus) a += tech.atkBonus;
+            return a;
+        }
+        function calcDef() {
+            let d = baseDef + realmIndex * 2;
+            const armor = getEquippedArmor();
+            const treasure = getEquippedTreasure();
+            if (armor && armor.def) d += armor.def;
+            if (treasure && treasure.def) d += treasure.def;
+            return d;
+        }
+        function calcCultSpeed() {
+            let speed = 10 + realmIndex * 4;
+            speed *= spiritRoot.mult;
+            const tech = getEquippedTechnique();
+            if (tech && tech.speedMult) speed *= tech.speedMult;
+            return Math.floor(speed);
+        }
+        function calcBreakChance() {
+            const realm = getRealm();
+            let chance = realm.breakChance;
+            chance += (luck - 50) * 0.003;
+            const tech = getEquippedTechnique();
+            if (tech && tech.breakBonus) chance += tech.breakBonus;
+            // 丹药加成？可后续扩展
+            return clamp(chance, 0.05, 0.98);
+        }
+
+        function gainCult(amount) {
+            cult += amount;
+            const realm = getRealm();
+            if (realm.needCult === Infinity) { cult = 0; return; }
+            // 自动突破条件：开启自动突破 且 当前境界 >= 金丹初期(索引12) 且 无丹药需求 且 突破概率 >= 0.95 (否则手动)
+            if (autoBreakthroughEnabled && realmIndex >= 12 && realm.needPill === null && realm.breakChance >= 0.95) {
+                while (realmIndex < REALMS.length - 1 && cult >= realm.needCult && realm.needPill === null) {
+                    cult -= realm.needCult;
+                    realmIndex++;
+                    gainLog('自动突破成功！踏入【' + getRealm().name + '】！', 'event-breakthrough');
+                    maxHp = calcMaxHp();
+                    hp = maxHp;
+                    luck = clamp(luck + 1, 1, 100);
+                }
+            }
+        }
+        function gainStones(amount) {
+            const treasure = getEquippedTreasure();
+            if (treasure && treasure.effect === 'stoneDouble' && amount > 0) amount = Math.floor(amount * 1.5);
+            stones += amount;
+            if (stones < 0) stones = 0;
+        }
+        function gainLuck(amount) { luck = clamp(luck + amount, 1, 100); }
+        function addPill(pillName, count) {
+            for (let i = 0; i < count; i++) inventory.push({ type: 'pill', name: pillName });
+        }
+        function hasPill(pillName) { return inventory.some(item => item.type === 'pill' && item.name === pillName); }
+        function consumePill(pillName) {
+            const idx = inventory.findIndex(item => item.type === 'pill' && item.name === pillName);
+            if (idx >= 0) { inventory.splice(idx, 1); return true; }
+            return false;
+        }
+        function addItemToInventory(item) {
+            if (item.type === 'pill') {
+                inventory.push({ type: 'pill', name: item.name });
+            } else {
+                if (!inventory.some(i => i.type === item.type && i.name === item.name)) {
+                    inventory.push({ type: item.type, name: item.name });
+                } else {
+                    gainLog('你已经拥有' + item.name + '，无法重复获得。', 'event-bad');
+                }
+            }
+        }
+        function getRandomItemFromList(list, qualityFilter) {
+            let filtered = list;
+            if (qualityFilter && qualityFilter.length > 0) {
+                filtered = list.filter(item => qualityFilter.includes(item.quality));
+            }
+            return filtered[randInt(0, filtered.length - 1)];
+        }
+
+        function gainLog(text, cls) {
+            const time = new Date();
+            const timeStr = time.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            logEntries.push({ time: timeStr, text: text, cls: cls || '' });
+            if (logEntries.length > 200) logEntries.shift();
+            renderLog();
+        }
+
+        // ==================== 渲染函数 ====================
+        function renderUI() {
+            const realm = getRealm();
+            const nextRealm = getNextRealm();
+            maxHp = calcMaxHp();
+            hp = clamp(hp, 0, maxHp);
+
+            document.getElementById('charName').textContent = playerName;
+            document.getElementById('realmBadge').textContent = realm.name;
+            document.getElementById('lifespan').textContent = realm.lifespan + '载';
+            document.getElementById('spiritRoot').textContent = spiritRoot.name + '（' + spiritRoot.desc + '）';
+            document.getElementById('luckValue').textContent = luck + (luck >= 70 ? ' ★' : luck >= 50 ? ' ◆' : ' ○');
+            document.getElementById('spiritStones').textContent = stones;
+
+            const needCult = realm.needCult === Infinity ? 0 : realm.needCult;
+            const cultPct = needCult > 0 ? clamp((cult / needCult) * 100, 0, 100) : 100;
+            document.getElementById('cultivationText').textContent =
+                Math.floor(cult).toLocaleString() + ' / ' + (needCult === Infinity ? '∞' : needCult.toLocaleString());
+            document.getElementById('cultivationBar').style.width = cultPct + '%';
+            document.getElementById('cultivationBarText').textContent = Math.floor(cultPct) + '%';
+            if (cult >= needCult && needCult !== Infinity && needCult > 0) {
+                document.getElementById('cultivationBar').classList.add('breakthrough');
+            } else {
+                document.getElementById('cultivationBar').classList.remove('breakthrough');
+            }
+
+            const hpPct = (hp / maxHp) * 100;
+            document.getElementById('healthText').textContent = Math.floor(hp) + ' / ' + maxHp;
+            document.getElementById('healthBar').style.width = hpPct + '%';
+            document.getElementById('healthBarText').textContent = Math.floor(hpPct) + '%';
+
+            document.getElementById('atkValue').textContent = calcAtk();
+            document.getElementById('defValue').textContent = calcDef();
+            document.getElementById('cultSpeed').textContent = calcCultSpeed() + '/息';
+
+            const hint = document.getElementById('breakthroughHint');
+            if (realm.needCult === Infinity) {
+                hint.textContent = '已飞升成仙，功德圆满！';
+                document.getElementById('btnBreakthrough').disabled = true;
+            } else if (cult >= realm.needCult) {
+                if (realm.needPill) {
+                    if (hasPill(realm.needPill)) {
+                        hint.textContent = '修为已足，需要' + realm.needPill + '（已拥有），可突破！突破成功率：' + Math.floor(calcBreakChance()*100) + '%';
+                        document.getElementById('btnBreakthrough').disabled = false;
+                    } else {
+                        hint.textContent = '修为已足，但缺少' + realm.needPill + '！';
+                        document.getElementById('btnBreakthrough').disabled = true;
+                    }
+                } else {
+                    hint.textContent = '修为已足，可突破至【' + (nextRealm ? nextRealm.name : '未知') + '】！突破成功率：' + Math.floor(calcBreakChance()*100) + '%';
+                    document.getElementById('btnBreakthrough').disabled = false;
+                }
+            } else {
+                const remaining = Math.floor(realm.needCult - cult);
+                hint.textContent = '还需' + remaining.toLocaleString() + '修为方可突破';
+                document.getElementById('btnBreakthrough').disabled = true;
+            }
+
+            // 自动突破按钮状态
+            const autoBtn = document.getElementById('btnAutoBreakthrough');
+            const autoHint = document.getElementById('autoHint');
+            if (realmIndex >= 12) {
+                autoBtn.disabled = false;
+                autoBtn.textContent = autoBreakthroughEnabled ? '已开启' : '已关闭';
+                autoBtn.classList.toggle('btn-gold', autoBreakthroughEnabled);
+                autoBtn.classList.toggle('btn-danger', !autoBreakthroughEnabled);
+                autoHint.textContent = autoBreakthroughEnabled ? '自动突破已开启' : '点击开启自动突破（仅限金丹期后）';
+            } else {
+                autoBtn.disabled = true;
+                autoBtn.textContent = '未开启';
+                autoBtn.classList.remove('btn-gold', 'btn-danger');
+                autoHint.textContent = '金丹期后可开启自动突破';
+            }
+
+            document.getElementById('cultivationDetail').innerHTML =
+                '基础速率：' + (10 + realmIndex * 4) + '/息<br>' +
+                '灵根加成：' + spiritRoot.name + '（×' + spiritRoot.mult + '）<br>' +
+                '功法加成：' + (getEquippedTechnique() ? getEquippedTechnique().name + '（×' + getEquippedTechnique().speedMult + '）' : '无') + '<br>' +
+                '装备加成：' + (getEquippedWeapon() ? getEquippedWeapon().name : '无') + ' / ' + (getEquippedArmor() ? getEquippedArmor().name : '无') + '<br>' +
+                '当前速率：' + calcCultSpeed() + '修为/息';
+
+            document.getElementById('equipWeapon').textContent = getEquippedWeapon() ? getEquippedWeapon().name + '（' + getEquippedWeapon().quality + '）' : '未装备';
+            document.getElementById('equipArmor').textContent = getEquippedArmor() ? getEquippedArmor().name + '（' + getEquippedArmor().quality + '）' : '未装备';
+            document.getElementById('equipTreasure').textContent = getEquippedTreasure() ? getEquippedTreasure().name + '（' + getEquippedTreasure().quality + '）' : '未装备';
+            document.getElementById('equipTechnique').textContent = getEquippedTechnique() ? getEquippedTechnique().name + '（' + getEquippedTechnique().quality + '）' : '未装备';
+
+            renderInventory();
+            renderShop();
+        }
+        function updateUI() { renderUI(); }
+
+        function renderLog() {
+            const container = document.getElementById('logContainer');
+            container.innerHTML = '';
+            logEntries.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'log-entry ' + (entry.cls || '');
+                div.innerHTML = '<span class="log-time">[' + entry.time + ']</span>' + entry.text;
+                container.appendChild(div);
+            });
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function renderInventory() {
+            const container = document.getElementById('inventoryList');
+            if (inventory.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted" style="padding:10px;">空空如也</div>';
+                return;
+            }
+            container.innerHTML = '';
+            const grouped = {};
+            inventory.forEach(item => {
+                const key = item.type + '_' + item.name;
+                if (!grouped[key]) grouped[key] = { ...item, count: 0 };
+                grouped[key].count++;
+            });
+            Object.values(grouped).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item-entry';
+                const qualityClass = item.qualityClass && item.qualityClass.trim() ? item.qualityClass : 'quality-fan';
+                const qualityName = item.quality || '';
+                const isEquipped = isItemEquipped(item);
+                if (isEquipped) div.classList.add('equipped');
+                let actionText = '';
+                let actionClass = 'btn-gold'; // 默认金色（装备/服用）
+                if (item.type === 'pill') actionText = '服用';
+                else if (['weapon','armor','treasure','technique'].includes(item.type)) {
+                    if (isEquipped) {
+                        actionText = '卸下';
+                        actionClass = 'btn-danger';
+                    } else {
+                        actionText = '装备';
+                        actionClass = 'btn-gold';
+                    }
+                }
+                const countStr = item.count > 1 ? ' ×' + item.count : '';
+                div.innerHTML =
+                    '<span><span class="item-name">' + item.name + '</span>' +
+                    '<span class="item-quality ' + qualityClass + '">' + qualityName + '</span>' + countStr +
+                    '<br><span class="item-info">' + (item.desc || '') + '</span></span>' +
+                    '<button class="btn btn-sm item-action ' + actionClass + '" data-type="' + item.type + '" data-name="' + item.name + '">' + actionText + '</button>';
+                container.appendChild(div);
+            });
+            container.querySelectorAll('.item-action').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleItemUse(this.dataset.type, this.dataset.name);
+                });
+            });
+        }
+
+        function isItemEquipped(item) {
+            if (item.type === 'weapon') return equipped.weapon === item.id;
+            if (item.type === 'armor') return equipped.armor === item.id;
+            if (item.type === 'treasure') return equipped.treasure === item.id;
+            if (item.type === 'technique') return equipped.technique === item.id;
+            return false;
+        }
+
+        function renderShop() {
+            const container = document.getElementById('shopList');
+            const items = getShopItems();
+            container.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item-entry';
+                const qualityClass = item.qualityClass && item.qualityClass.trim() ? item.qualityClass : 'quality-fan';
+                const qualityName = item.quality || '';
+                const typeLabel = { pill:'丹', weapon:'兵', armor:'甲', treasure:'宝', technique:'法' }[item.type] || '';
+                const owned = inventory.filter(i => i.type === item.type && i.name === item.name).length;
+                div.innerHTML =
+                    '<span><span class="item-name">' + item.name + '</span>' +
+                    '<span class="item-quality ' + qualityClass + '">' + qualityName + '</span>' +
+                    '<span class="item-info">【' + typeLabel + '】' + (item.desc || '') + '</span>' +
+                    (owned > 0 ? '<span class="item-info" style="color:var(--jade);"> 已有' + owned + '</span>' : '') +
+                    '<br><span class="item-info">💰' + item.price + '灵石</span></span>' +
+                    '<button class="btn btn-sm btn-gold item-action" data-type="' + item.type + '" data-name="' + item.name + '" data-price="' + item.price + '">购买</button>';
+                container.appendChild(div);
+            });
+            container.querySelectorAll('.item-action').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleBuy(this.dataset.type, this.dataset.name, parseInt(this.dataset.price));
+                });
+            });
+        }
+
+        function getShopItems() {
+            const items = [];
+            PILLS.forEach(p => items.push({ ...p }));
+            WEAPONS.forEach(w => items.push({ ...w }));
+            ARMORS.forEach(a => items.push({ ...a }));
+            TREASURES.forEach(t => items.push({ ...t }));
+            TECHNIQUES.forEach(f => items.push({ ...f }));
+            return items;
+        }
+
+        // ==================== 物品操作 ====================
+        function handleItemUse(type, name) {
+            if (type === 'pill') {
+                const pill = PILLS.find(p => p.name === name);
+                if (!pill) return;
+                if (!consumePill(name)) { gainLog('你没有' + name + '！', 'event-bad'); return; }
+                if (pill.effect === 'cult') {
+                    gainCult(pill.value);
+                    gainLog('服用' + name + '，修为+' + pill.value + '！', 'event-good');
+                } else if (pill.effect === 'heal') {
+                    hp = Math.min(maxHp, hp + pill.value);
+                    gainLog('服用' + name + '，气血恢复' + pill.value + '！', 'event-good');
+                } else if (pill.effect === 'breakPill') {
+                    gainLog(name + '是突破丹药，请在突破时使用。', 'event-special');
+                    inventory.push({ type: 'pill', name: name });
+                } else if (pill.effect === 'root') {
+                    if (Math.random() < 0.3) {
+                        const newRoot = SPIRIT_ROOTS[randInt(0, SPIRIT_ROOTS.length-1)];
+                        spiritRoot = newRoot;
+                        gainLog('洗髓成功！灵根变为：' + spiritRoot.name + '！', 'event-breakthrough');
+                    } else {
+                        gainLog('洗髓失败，灵根未变。', 'event-bad');
+                    }
+                }
+                updateUI();
+            } else {
+                const itemListMap = { weapon: WEAPONS, armor: ARMORS, treasure: TREASURES, technique: TECHNIQUES };
+                const list = itemListMap[type];
+                if (!list) return;
+                const item = list.find(i => i.name === name);
+                if (!item) return;
+                const equipKey = { weapon:'weapon', armor:'armor', treasure:'treasure', technique:'technique' }[type];
+                if (equipped[equipKey] === item.id) {
+                    equipped[equipKey] = null;
+                    gainLog('卸下' + item.name + '。', 'event-good');
+                } else {
+                    equipped[equipKey] = item.id;
+                    maxHp = calcMaxHp();
+                    hp = Math.min(hp, maxHp);
+                    gainLog('装备' + item.name + '！', 'event-good');
+                }
+                updateUI();
+            }
+        }
+
+        function handleBuy(type, name, price) {
+            if (stones < price) { gainLog('灵石不足，无法购买' + name + '！', 'event-bad'); return; }
+            if (type !== 'pill') {
+                if (inventory.some(i => i.type === type && i.name === name)) {
+                    gainLog('你已拥有' + name + '！', 'event-bad');
+                    return;
+                }
+            }
+            stones -= price;
+            inventory.push({ type: type, name: name });
+            gainLog('花费' + price + '灵石，购得' + name + '！', 'event-good');
+            updateUI();
+            saveGame();
+        }
+
+        // ==================== 突破系统 ====================
+        function attemptBreakthrough() {
+            const realm = getRealm();
+            if (realm.needCult === Infinity) return;
+            if (cult < realm.needCult) { gainLog('修为不足，无法突破。', 'event-bad'); return; }
+            const nextRealm = getNextRealm();
+            if (!nextRealm) { gainLog('已至巅峰，无路可进。', 'event-special'); return; }
+
+            if (realm.needPill) {
+                if (!consumePill(realm.needPill)) {
+                    gainLog('缺少' + realm.needPill + '，无法突破！', 'event-bad');
+                    return;
+                }
+            }
+
+            const chance = calcBreakChance();
+            const roll = Math.random();
+
+            if (roll < chance) {
+                cult = Math.max(0, cult - realm.needCult);
+                realmIndex++;
+                maxHp = calcMaxHp();
+                hp = maxHp;
+                luck = clamp(luck + 3, 1, 100);
+                gainLog('─── 突破成功！───', 'event-breakthrough');
+                gainLog('你突破至【' + getRealm().name + '】！' + getRealm().desc, 'event-breakthrough');
+                gainLog('气运+3，气血恢复至满。', 'event-good');
+                const reward = Math.floor(realmIndex * 30);
+                gainStones(reward);
+                gainLog('境界突破奖励：灵石+' + reward + '。', 'event-good');
+                document.getElementById('gameContainer').classList.add('breakthrough-flash');
+                setTimeout(() => document.getElementById('gameContainer').classList.remove('breakthrough-flash'), 2500);
+                saveGame();
+            } else {
+                const loss = Math.floor(realm.needCult * 0.35);
+                cult = Math.max(0, cult - loss);
+                luck = clamp(luck - 5, 1, 100);
+                gainLog('─── 突破失败 ───', 'event-bad');
+                gainLog('心境波动，修为损失' + loss.toLocaleString() + '，气运-5。', 'event-bad');
+                if (realm.needPill) gainLog('突破丹药已消耗。', 'event-bad');
+            }
+            updateUI();
+            saveGame();
+        }
+
+        // ==================== 自动突破开关 ====================
+        function toggleAutoBreakthrough() {
+            if (realmIndex < 12) {
+                gainLog('金丹期之前无法开启自动突破。', 'event-bad');
+                return;
+            }
+            autoBreakthroughEnabled = !autoBreakthroughEnabled;
+            gainLog(autoBreakthroughEnabled ? '自动突破已开启。' : '自动突破已关闭。', 'event-good');
+            updateUI();
+            saveGame();
+        }
+
+        // ==================== 探险系统 ====================
+        function explore() {
+            const totalWeight = EXPLORE_EVENTS.reduce((sum, ev) => sum + (ev.weight || 1), 0);
+            let roll = Math.random() * totalWeight;
+            let selectedEvent = null;
+            for (const ev of EXPLORE_EVENTS) {
+                roll -= (ev.weight || 1);
+                if (roll <= 0) { selectedEvent = ev; break; }
+            }
+            if (!selectedEvent) selectedEvent = EXPLORE_EVENTS[0];
+
+            if (selectedEvent.type === 'battle') {
+                gainLog('探险遭遇：' + selectedEvent.title, 'event-special');
+                resolveBattle(selectedEvent.battlePower || 30);
+            } else if (selectedEvent.type === 'item') {
+                gainLog('探险发现：' + selectedEvent.title, 'event-special');
+                selectedEvent.effect();
+            } else if (selectedEvent.type === 'encounter') {
+                const pool = selectedEvent.encounterPool;
+                const encounter = pool[randInt(0, pool.length - 1)];
+                showEncounter(encounter);
+                return;
+            }
+            updateUI();
+            saveGame();
+        }
+
+        // ==================== 奇遇系统 ====================
+        function triggerEncounter() {
+            if (encounterCooldown > 0) return;
+            encounterCooldown = randInt(20, 45);
+            const goodProb = clamp(0.2 + (luck - 30) * 0.015, 0.1, 0.75);
+            const badProb = clamp(0.35 - (luck - 30) * 0.012, 0.05, 0.5);
+            const roll = Math.random();
+            let pool;
+            if (roll < goodProb) pool = ENCOUNTERS_GOOD;
+            else if (roll < goodProb + badProb) pool = ENCOUNTERS_BAD;
+            else pool = ENCOUNTERS_NEUTRAL;
+            const encounter = pool[randInt(0, pool.length - 1)];
+            showEncounter(encounter);
+        }
+
+        function showEncounter(encounter) {
+            const overlay = document.getElementById('encounterOverlay');
+            const titleEl = document.getElementById('encounterTitle');
+            const descEl = document.getElementById('encounterDesc');
+            const choicesEl = document.getElementById('encounterChoices');
+            titleEl.textContent = '【' + encounter.title + '】';
+            descEl.textContent = encounter.desc;
+            choicesEl.innerHTML = '';
+            encounter.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'btn ' + (choice.result === 'battle' ? 'btn-primary' : choice.result === 'good' ? 'btn-jade' : 'btn-gold');
+                btn.textContent = choice.text;
+                btn.addEventListener('click', () => {
+                    overlay.classList.remove('show');
+                    if (choice.result === 'battle') {
+                        resolveBattle(choice.battlePower || 30);
+                    } else if (choice.effect) {
+                        choice.effect();
+                        updateUI();
+                    }
+                    saveGame();
+                });
+                choicesEl.appendChild(btn);
+            });
+            overlay.classList.add('show');
+        }
+
+        function resolveBattle(enemyPower) {
+            const playerPower = calcAtk() + calcDef() + realmIndex * 5;
+            const totalPower = playerPower + enemyPower;
+            const playerWinProb = playerPower / totalPower;
+            const roll = Math.random();
+            if (roll < playerWinProb) {
+                const rewardStones = randInt(30, 200);
+                const rewardCult = randInt(50, 300);
+                gainStones(rewardStones);
+                gainCult(rewardCult);
+                const dmg = randInt(5, 25);
+                hp = Math.max(1, hp - dmg);
+                gainLog('⚔️ 战斗胜利！获得灵石' + rewardStones + '，修为+' + rewardCult + '，损失气血' + dmg + '。', 'event-good');
+            } else {
+                const dmg = Math.floor(hp * (0.2 + Math.random() * 0.2));
+                const stoneLoss = Math.min(stones, randInt(20, 100));
+                stones -= stoneLoss;
+                hp = Math.max(1, hp - dmg);
+                gainLog('⚔️ 战斗失利！损失灵石' + stoneLoss + '，气血-' + dmg + '。', 'event-bad');
+            }
+            updateUI();
+        }
+
+        function meditate() {
+            if (stones < 30) { gainLog('灵石不足30，无法打坐恢复。', 'event-bad'); return; }
+            stones -= 30;
+            const healAmount = Math.floor(maxHp * 0.4) + 30;
+            hp = Math.min(maxHp, hp + healAmount);
+            gainLog('打坐调息，消耗30灵石，恢复气血' + healAmount + '。', 'event-good');
+            updateUI();
+            saveGame();
+        }
+
+        // ==================== 游戏循环 ====================
+        function gameLoop() {
+            const now = Date.now();
+            const deltaSec = (now - lastTickTime) / 1000;
+            lastTickTime = now;
+            if (deltaSec > 0) {
+                const speed = calcCultSpeed();
+                const gained = speed * Math.min(deltaSec, 5);
+                if (gained > 0 && realmIndex < REALMS.length - 1) {
+                    gainCult(gained);
+                }
+                if (hp < maxHp) hp = Math.min(maxHp, hp + deltaSec * 0.5);
+                encounterCooldown -= deltaSec;
+                if (encounterCooldown <= 0) {
+                    encounterCooldown = 0;
+                    triggerEncounter();
+                }
+                if (now - lastAutoSave > 60000) {
+                    lastAutoSave = now;
+                    saveGame();
+                }
+            }
+            updateUI();
+        }
+
+        // ==================== 存档系统 ====================
+        function saveGame() {
+            const data = {
+                playerName, realmIndex, cult, stones, hp, maxHp, baseAtk, baseDef, luck,
+                spiritRoot, inventory, equipped, logEntries: logEntries.slice(-50),
+                encounterCooldown, autoBreakthroughEnabled, lastSave: Date.now(), version: '1.2.0'
+            };
+            try {
+                localStorage.setItem('xiantu_save', JSON.stringify(data));
+                document.getElementById('lastSaveTime').textContent = '已存档：' + new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            } catch(e) { console.warn('存档失败', e); }
+        }
+
+        function loadGame() {
+            try {
+                const data = localStorage.getItem('xiantu_save');
+                if (data) {
+                    const save = JSON.parse(data);
+                    if (save.version === '1.2.0' || save.version === '1.1.0' || save.version === '1.0.0') {
+                        playerName = save.playerName || '无名散修';
+                        realmIndex = save.realmIndex || 0;
+                        cult = save.cult || 0;
+                        stones = save.stones || 50;
+                        hp = save.hp || 100;
+                        maxHp = save.maxHp || 100;
+                        baseAtk = save.baseAtk || 5;
+                        baseDef = save.baseDef || 3;
+                        luck = save.luck || 50;
+                        spiritRoot = save.spiritRoot || SPIRIT_ROOTS[2];
+                        inventory = save.inventory || [];
+                        equipped = save.equipped || { weapon:null, armor:null, treasure:null, technique:null };
+                        logEntries = save.logEntries || [];
+                        encounterCooldown = save.encounterCooldown || 15;
+                        autoBreakthroughEnabled = save.autoBreakthroughEnabled || false;
+                        gainLog('读取存档成功，继续修行之路。', 'event-special');
+                        return true;
+                    }
+                }
+            } catch(e) { console.warn('读档失败', e); }
+            return false;
+        }
+
+        function resetGame() {
+            if (confirm('确定要重新开始吗？所有进度将丢失！')) {
+                localStorage.removeItem('xiantu_save');
+                location.reload();
+            }
+        }
+
+        function calcOfflineReward() {
+            try {
+                const data = localStorage.getItem('xiantu_save');
+                if (data) {
+                    const save = JSON.parse(data);
+                    if (save.lastSave) {
+                        const offlineSec = (Date.now() - save.lastSave) / 1000;
+                        if (offlineSec > 60) {
+                            const cappedSec = Math.min(offlineSec, 3600 * 8);
+                            const speed = 10 + save.realmIndex * 4;
+                            const offlineGain = Math.floor(speed * cappedSec * 0.5);
+                            if (offlineGain > 0 && save.realmIndex < REALMS.length - 1) {
+                                cult += offlineGain;
+                                gainLog('离线修炼 ' + Math.floor(cappedSec / 60) + ' 分钟，获得修为' + offlineGain.toLocaleString() + '。', 'event-special');
+                                return true;
+                            }
+                        }
+                    }
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        // ==================== Tab切换 ====================
+        function initTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.dataset.tab;
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                    document.getElementById(targetId).classList.add('active');
+                    if (targetId === 'tab-shop') renderShop();
+                    if (targetId === 'tab-inventory') renderInventory();
+                });
+            });
+        }
+
+        function initEvents() {
+            document.getElementById('btnBreakthrough').addEventListener('click', attemptBreakthrough);
+            document.getElementById('btnMeditate').addEventListener('click', meditate);
+            document.getElementById('btnSave').addEventListener('click', saveGame);
+            document.getElementById('btnReset').addEventListener('click', resetGame);
+            document.getElementById('btnClearLog').addEventListener('click', () => { logEntries = []; renderLog(); gainLog('日志已清空。', 'event-special'); });
+            document.getElementById('btnExplore').addEventListener('click', explore);
+            document.getElementById('btnAutoBreakthrough').addEventListener('click', toggleAutoBreakthrough);
+        }
+
+        // ==================== 初始化 ====================
+        function init() {
+            const loaded = loadGame();
+            if (loaded) {
+                calcOfflineReward();
+                maxHp = calcMaxHp();
+                hp = clamp(hp, 0, maxHp);
+            } else {
+                playerName = '无名散修';
+                realmIndex = 0;
+                cult = 0;
+                stones = 50;
+                hp = 100;
+                maxHp = 100;
+                luck = randInt(30, 80);
+                spiritRoot = SPIRIT_ROOTS[randInt(0, SPIRIT_ROOTS.length - 1)];
+                inventory = [];
+                equipped = { weapon:null, armor:null, treasure:null, technique:null };
+                logEntries = [];
+                encounterCooldown = 15;
+                autoBreakthroughEnabled = false;
+                gainLog('【启程】你踏上修仙之路，前路茫茫，且行且悟。', 'event-special');
+                gainLog('灵根觉醒：' + spiritRoot.name + '（' + spiritRoot.desc + '）', 'event-good');
+                gainLog('初始气运：' + luck, 'event-good');
+                gainLog('获得新人礼包：灵石50。', 'event-good');
+                saveGame();
+            }
+            initTabs();
+            initEvents();
+            updateUI();
+            renderLog();
+            setInterval(gameLoop, 1000);
+            setTimeout(() => triggerEncounter(), 3000);
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    lastTickTime = Date.now();
+                    calcOfflineReward();
+                    updateUI();
+                }
+            });
+        }
+
+        // ==================== 游戏状态变量 ====================
+        let playerName = '无名散修';
+        let realmIndex = 0;
+        let cult = 0;
+        let stones = 50;
+        let hp = 100;
+        let maxHp = 100;
+        let baseAtk = 5;
+        let baseDef = 3;
+        let luck = 50;
+        let spiritRoot = SPIRIT_ROOTS[2];
+        let inventory = [];
+        let equipped = { weapon:null, armor:null, treasure:null, technique:null };
+        let logEntries = [];
+        let encounterCooldown = 15;
+        let autoBreakthroughEnabled = false;
+        let gameTick = 0;
+        let lastAutoSave = Date.now();
+        let lastTickTime = Date.now();
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# 默认：仓库内统一存 LF，检出时由各平台自行处理
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF，否则 cmd 解析可能出错
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Shell 脚本必须是 LF，否则 Linux/macOS 下会报 bad interpreter
+*.sh text eol=lf
+
+# 二进制文件不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ogg binary
+*.mp3 binary
+*.woff binary
+*.woff2 binary

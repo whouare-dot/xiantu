@@ -1,0 +1,316 @@
+{
+  "incomePerRealm": [
+    {
+      "index": 0,
+      "name": "炼气一层",
+      "band": "炼气",
+      "incomePerMin": 10
+    },
+    {
+      "index": 1,
+      "name": "炼气二层",
+      "band": "炼气",
+      "incomePerMin": 10
+    },
+    {
+      "index": 2,
+      "name": "炼气三层",
+      "band": "炼气",
+      "incomePerMin": 10
+    },
+    {
+      "index": 3,
+      "name": "炼气四层",
+      "band": "炼气",
+      "incomePerMin": 11
+    },
+    {
+      "index": 4,
+      "name": "炼气五层",
+      "band": "炼气",
+      "incomePerMin": 11
+    },
+    {
+      "index": 5,
+      "name": "炼气六层",
+      "band": "炼气",
+      "incomePerMin": 12
+    },
+    {
+      "index": 6,
+      "name": "炼气七层",
+      "band": "炼气",
+      "incomePerMin": 12
+    },
+    {
+      "index": 7,
+      "name": "炼气八层",
+      "band": "炼气",
+      "incomePerMin": 13
+    },
+    {
+      "index": 8,
+      "name": "炼气九层",
+      "band": "炼气",
+      "incomePerMin": 14
+    },
+    {
+      "index": 9,
+      "name": "筑基初期",
+      "band": "筑基",
+      "incomePerMin": 33
+    },
+    {
+      "index": 10,
+      "name": "筑基中期",
+      "band": "筑基",
+      "incomePerMin": 40
+    },
+    {
+      "index": 11,
+      "name": "筑基后期",
+      "band": "筑基",
+      "incomePerMin": 48
+    },
+    {
+      "index": 12,
+      "name": "金丹初期",
+      "band": "金丹",
+      "incomePerMin": 140
+    },
+    {
+      "index": 13,
+      "name": "金丹中期",
+      "band": "金丹",
+      "incomePerMin": 160
+    },
+    {
+      "index": 14,
+      "name": "金丹后期",
+      "band": "金丹",
+      "incomePerMin": 200
+    },
+    {
+      "index": 15,
+      "name": "元婴初期",
+      "band": "元婴",
+      "incomePerMin": 600
+    },
+    {
+      "index": 16,
+      "name": "元婴中期",
+      "band": "元婴",
+      "incomePerMin": 720
+    },
+    {
+      "index": 17,
+      "name": "元婴后期",
+      "band": "元婴",
+      "incomePerMin": 860
+    },
+    {
+      "index": 18,
+      "name": "化神初期",
+      "band": "化神",
+      "incomePerMin": 2500
+    },
+    {
+      "index": 19,
+      "name": "化神中期",
+      "band": "化神",
+      "incomePerMin": 2900
+    },
+    {
+      "index": 20,
+      "name": "化神后期",
+      "band": "化神",
+      "incomePerMin": 3500
+    },
+    {
+      "index": 21,
+      "name": "炼虚期",
+      "band": "炼虚",
+      "incomePerMin": 9000
+    },
+    {
+      "index": 22,
+      "name": "合体期",
+      "band": "合体",
+      "incomePerMin": 25000
+    },
+    {
+      "index": 23,
+      "name": "大乘期",
+      "band": "大乘",
+      "incomePerMin": 69000
+    },
+    {
+      "index": 24,
+      "name": "渡劫期",
+      "band": "渡劫",
+      "incomePerMin": 180000
+    },
+    {
+      "index": 25,
+      "name": "飞升成仙",
+      "band": "飞升",
+      "incomePerMin": 180000
+    }
+  ],
+  "bands": [
+    {
+      "band": "炼气",
+      "indexStart": 0,
+      "indexEnd": 8,
+      "incomePerMin": 10,
+      "expeditionStoneMin": 20,
+      "expeditionStoneMax": 50
+    },
+    {
+      "band": "筑基",
+      "indexStart": 9,
+      "indexEnd": 11,
+      "incomePerMin": 33,
+      "expeditionStoneMin": 66,
+      "expeditionStoneMax": 165
+    },
+    {
+      "band": "金丹",
+      "indexStart": 12,
+      "indexEnd": 14,
+      "incomePerMin": 140,
+      "expeditionStoneMin": 280,
+      "expeditionStoneMax": 700
+    },
+    {
+      "band": "元婴",
+      "indexStart": 15,
+      "indexEnd": 17,
+      "incomePerMin": 600,
+      "expeditionStoneMin": 1200,
+      "expeditionStoneMax": 3000
+    },
+    {
+      "band": "化神",
+      "indexStart": 18,
+      "indexEnd": 20,
+      "incomePerMin": 2500,
+      "expeditionStoneMin": 5000,
+      "expeditionStoneMax": 12500
+    },
+    {
+      "band": "炼虚",
+      "indexStart": 21,
+      "indexEnd": 21,
+      "incomePerMin": 9000,
+      "expeditionStoneMin": 18000,
+      "expeditionStoneMax": 45000
+    },
+    {
+      "band": "合体",
+      "indexStart": 22,
+      "indexEnd": 22,
+      "incomePerMin": 25000,
+      "expeditionStoneMin": 50000,
+      "expeditionStoneMax": 125000
+    },
+    {
+      "band": "大乘",
+      "indexStart": 23,
+      "indexEnd": 23,
+      "incomePerMin": 69000,
+      "expeditionStoneMin": 138000,
+      "expeditionStoneMax": 345000
+    },
+    {
+      "band": "渡劫",
+      "indexStart": 24,
+      "indexEnd": 24,
+      "incomePerMin": 180000,
+      "expeditionStoneMin": 360000,
+      "expeditionStoneMax": 900000
+    },
+    {
+      "band": "飞升",
+      "indexStart": 25,
+      "indexEnd": 25,
+      "incomePerMin": 180000,
+      "expeditionStoneMin": 360000,
+      "expeditionStoneMax": 900000
+    }
+  ],
+  "breakPills": [
+    {
+      "breakInto": "筑基初期",
+      "pill": "筑基丹",
+      "destBand": "筑基",
+      "destBandIncomePerMin": 33,
+      "farmMinutes": 15,
+      "price": 500
+    },
+    {
+      "breakInto": "金丹初期",
+      "pill": "结金丹",
+      "destBand": "金丹",
+      "destBandIncomePerMin": 140,
+      "farmMinutes": 15,
+      "price": 2100
+    },
+    {
+      "breakInto": "元婴初期",
+      "pill": "凝婴丹",
+      "destBand": "元婴",
+      "destBandIncomePerMin": 600,
+      "farmMinutes": 15,
+      "price": 9000
+    },
+    {
+      "breakInto": "化神初期",
+      "pill": "化神丹",
+      "destBand": "化神",
+      "destBandIncomePerMin": 2500,
+      "farmMinutes": 15,
+      "price": 38000
+    },
+    {
+      "breakInto": "炼虚期",
+      "pill": "炼虚丹",
+      "destBand": "炼虚",
+      "destBandIncomePerMin": 9000,
+      "farmMinutes": 15,
+      "price": 140000
+    },
+    {
+      "breakInto": "合体期",
+      "pill": "合体丹",
+      "destBand": "合体",
+      "destBandIncomePerMin": 25000,
+      "farmMinutes": 15,
+      "price": 380000
+    },
+    {
+      "breakInto": "大乘期",
+      "pill": "大乘丹",
+      "destBand": "大乘",
+      "destBandIncomePerMin": 69000,
+      "farmMinutes": 15,
+      "price": 1000000
+    },
+    {
+      "breakInto": "渡劫期",
+      "pill": "渡劫丹",
+      "destBand": "渡劫",
+      "destBandIncomePerMin": 180000,
+      "farmMinutes": 15,
+      "price": 2700000
+    },
+    {
+      "breakInto": "飞升成仙",
+      "pill": "飞升仙丹",
+      "destBand": "飞升",
+      "destBandIncomePerMin": 180000,
+      "farmMinutes": 15,
+      "price": 2700000
+    }
+  ]
+}

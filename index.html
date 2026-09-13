@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>仙途 · 文字修仙</title>
+<link rel="icon" href="src/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="src/assets/favicon.ico" sizes="any">
+<link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ==================== 顶栏 ==================== -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <h1 class="brand-title">仙 途</h1>
+      <span class="brand-sub">文字修仙 · 放置悟道</span>
+    </div>
+    <div class="topbar-stats" id="topbarStats">
+      <div class="ts-item" title="当前境界">
+        <span class="ts-label">境界</span>
+        <span class="ts-value" id="tsRealm">炼气一层</span>
+      </div>
+      <div class="ts-item" title="寿元">
+        <span class="ts-label">寿元</span>
+        <span class="ts-value" id="tsLifespan">100 载</span>
+      </div>
+      <div class="ts-item" title="灵石">
+        <span class="ts-label">灵石</span>
+        <span class="ts-value" id="tsStones">50</span>
+      </div>
+      <div class="ts-item" title="当前修炼速率">
+        <span class="ts-label">速率</span>
+        <span class="ts-value" id="tsSpeed">10/息</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-sm" id="btnSettings" title="设置与存档">设置</button>
+    </div>
+  </header>
+
+  <!-- ==================== 三栏主体 ==================== -->
+  <div class="layout">
+
+    <aside class="col col-left">
+      <section class="panel" id="panelChar"></section>
+      <section class="panel" id="panelBuffs"></section>
+    </aside>
+
+    <main class="col col-center">
+      <nav class="tabs" id="mainTabs"></nav>
+      <div id="guideBar" hidden></div>
+      <div class="tab-body" id="tabBody">
+        <section class="tab-pane" id="pane-cultivate"></section>
+        <section class="tab-pane" id="pane-technique"></section>
+        <section class="tab-pane" id="pane-talent"></section>
+        <section class="tab-pane" id="pane-cave"></section>
+        <section class="tab-pane" id="pane-sect"></section>
+        <section class="tab-pane" id="pane-beast"></section>
+        <section class="tab-pane" id="pane-companion"></section>
+        <section class="tab-pane" id="pane-alchemy"></section>
+        <section class="tab-pane" id="pane-forge"></section>
+        <section class="tab-pane" id="pane-inventory"></section>
+        <section class="tab-pane" id="pane-achievement"></section>
+        <section class="tab-pane" id="pane-codex"></section>
+        <section class="tab-pane" id="pane-world"></section>
+        <section class="tab-pane" id="pane-shop"></section>
+        <section class="tab-pane" id="pane-tower"></section>
+        <section class="tab-pane" id="pane-reincarnation"></section>
+        <section class="tab-pane" id="pane-info"></section>
+      </div>
+    </main>
+
+    <aside class="col col-right">
+      <section class="panel panel-grow" id="panelLog"></section>
+      <section class="panel" id="panelSystem"></section>
+    </aside>
+  </div>
+
+  <!-- 移动端底部导航 -->
+  <nav class="mobile-nav" id="mobileNav"></nav>
+</div>
+
+<!-- 弹窗层：奇遇 / 天劫 / 离线结算 / 确认框 -->
+<div class="modal-root" id="modalRoot"></div>
+<!-- 飘字层 -->
+<div class="toast-root" id="toastRoot" aria-live="polite"></div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

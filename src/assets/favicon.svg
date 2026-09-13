@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-labelledby="xtIconTitle">
+  <title id="xtIconTitle">仙途 · 文字修仙</title>
+
+  <!--
+    站标 / 书签图标：宣纸方胜 + 墨线葫芦 + 朱砂祥云
+    ---------------------------------------------------------------
+    配色直接取自 src/styles/main.css 的 CSS 变量：
+      纸底 --bg-panel #f7eeda → --bg-deep #e2d2ac · 葫芦内壁 #fdf8ec
+      墨 #2c1810 · 朱砂 #b22222
+    画法遵循 src/assets/svg.js 的水墨约定：全部由 path / circle / rect
+    真实绘制，无 emoji、无文字字符。
+
+    小尺寸取舍（按 16×16 标签页实测像素调参，不是等比缩放）：
+      · 必须带宣纸底 —— 纯透明的话，墨色在深色标签栏上会糊成一片
+      · 外框 2.8、葫芦 3.4 是加粗过的：按 64 等比缩，16px 下笔画不足 1px
+        会直接消失
+      · 葫芦放大 16%（scale 1.16）填满方胜 —— 再大就会与大肚外的
+        两条轮廓线在 16px 处和外框糊成一坨黑块（实测 1.26 已开始糊）
+      · 祥云缩到 0.72 并居中：占满整个大肚时会被读成"一道红晕"，
+        收小后才是可辨认的纹样；缩到 16px 时它退化成一点朱砂，
+        正好承担"点睛"而非"细节"
+  -->
+
+  <defs>
+    <linearGradient id="xtIconPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7eeda"/>
+      <stop offset="1" stop-color="#e2d2ac"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 宣纸底：圆角方胜，深色标签栏下也能立住 -->
+  <rect x="2.5" y="2.5" width="59" height="59" rx="13"
+        fill="url(#xtIconPaper)" stroke="#2c1810" stroke-width="2.8"/>
+
+  <!-- 葫芦：放大 16% 并下移 0.7 —— 颈部细长，几何居中会显得上沿发挤，
+       略微下沉后上下留白才对得上眼 -->
+  <g transform="translate(32 32) scale(1.16) translate(-32 -32.7)">
+
+    <!-- 葫芦轮廓：蒂 → 上小肚 → 束腰 → 下大肚 -->
+    <path d="M 29 13
+             L 35 13
+             C 35 15.5 35.4 16.6 36.6 18.2
+             C 39.4 21 40 23 40 25
+             C 40 28 38.4 30 36.6 31.2
+             C 38 31.9 40.6 34.4 42 37.6
+             C 43.6 41.4 43.6 45 42.4 47.8
+             C 40.8 51.4 36.8 53.6 32 53.6
+             C 27.2 53.6 23.2 51.4 21.6 47.8
+             C 20.4 45 20.4 41.4 22 37.6
+             C 23.4 34.4 26 31.9 27.4 31.2
+             C 25.6 30 24 28 24 25
+             C 24 23 24.6 21 27.4 18.2
+             C 28.6 16.6 29 15.5 29 13 Z"
+          fill="#fdf8ec" stroke="#2c1810" stroke-width="3.4"
+          stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- 朱砂祥云：三朵云头 + 平底，实心块面，缩图后仍是一点朱砂 -->
+    <g transform="translate(32 41) scale(.72) translate(-32 -41)" fill="#b22222">
+      <circle cx="27.4" cy="40.6" r="3"/>
+      <circle cx="32"   cy="39"   r="4.2"/>
+      <circle cx="36.6" cy="40.6" r="3"/>
+      <rect x="27.4" y="40.6" width="9.2" height="3" rx="1.2"/>
+    </g>
+  </g>
+</svg>

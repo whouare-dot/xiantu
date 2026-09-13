@@ -1,0 +1,25 @@
+# 注意：本文件不支持行尾注释，注释必须独占一行，否则整行会被当成模式
+
+# 开发期产物 —— 浏览器调试日志（约 773KB 纯本地残留）
+.playwright-mcp/
+
+# 静态服务器日志
+tools/out/*.log
+
+# 第三方版权音频：不入库，理由见 src/music/README.md
+src/music/*
+!src/music/README.md
+
+# 个人素材 —— 宣传/视频文案草稿，与游戏本体无关
+字幕.txt
+
+# 编辑器本地历史（VSCode Local History 插件生成）
+.history/
+
+# 常规
+node_modules/
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

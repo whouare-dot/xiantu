@@ -1,0 +1,472 @@
+{
+  "baseTotalMinutes": 17443.7,
+  "configs": [
+    {
+      "config": "白板",
+      "rootMult": 1.0,
+      "techniqueMult": 1.0,
+      "caveMult": 1.0,
+      "sustainedMult": 1.0,
+      "totalMinutes": 17443.7,
+      "totalHours": 290.73,
+      "totalDays": 12.11,
+      "totalWithFailMinutes": 48025.45,
+      "totalWithFailHours": 800.42,
+      "usesBreakPill": false,
+      "failureDetail": [
+        {
+          "intoRealm": "筑基初期",
+          "fromRealm": "炼气九层",
+          "baseChance": 0.75,
+          "effectiveChance": 0.75,
+          "sourceMinutes": 120.6,
+          "expectedExtraMinutes": 40.2
+        },
+        {
+          "intoRealm": "金丹初期",
+          "fromRealm": "筑基后期",
+          "baseChance": 0.7,
+          "effectiveChance": 0.7,
+          "sourceMinutes": 229.4,
+          "expectedExtraMinutes": 98.31
+        },
+        {
+          "intoRealm": "元婴初期",
+          "fromRealm": "金丹后期",
+          "baseChance": 0.65,
+          "effectiveChance": 0.65,
+          "sourceMinutes": 410,
+          "expectedExtraMinutes": 220.77
+        },
+        {
+          "intoRealm": "化神初期",
+          "fromRealm": "元婴后期",
+          "baseChance": 0.6,
+          "effectiveChance": 0.6,
+          "sourceMinutes": 744.1,
+          "expectedExtraMinutes": 496.07
+        },
+        {
+          "intoRealm": "炼虚期",
+          "fromRealm": "化神后期",
+          "baseChance": 0.4,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 1272.2,
+          "expectedExtraMinutes": 1908.3
+        },
+        {
+          "intoRealm": "合体期",
+          "fromRealm": "炼虚期",
+          "baseChance": 0.35,
+          "effectiveChance": 0.35,
+          "sourceMinutes": 1632.4,
+          "expectedExtraMinutes": 3031.6
+        },
+        {
+          "intoRealm": "大乘期",
+          "fromRealm": "合体期",
+          "baseChance": 0.3,
+          "effectiveChance": 0.3,
+          "sourceMinutes": 2164.2,
+          "expectedExtraMinutes": 5049.8
+        },
+        {
+          "intoRealm": "渡劫期",
+          "fromRealm": "大乘期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.25,
+          "sourceMinutes": 2828.7,
+          "expectedExtraMinutes": 8486.1
+        },
+        {
+          "intoRealm": "飞升成仙",
+          "fromRealm": "渡劫期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.25,
+          "sourceMinutes": 3750.2,
+          "expectedExtraMinutes": 11250.6
+        }
+      ]
+    },
+    {
+      "config": "轻氪",
+      "rootMult": 1.3,
+      "techniqueMult": 1.4,
+      "caveMult": 1.2,
+      "sustainedMult": 2.184,
+      "totalMinutes": 7987.04,
+      "totalHours": 133.12,
+      "totalDays": 5.55,
+      "totalWithFailMinutes": 15125.87,
+      "totalWithFailHours": 252.1,
+      "usesBreakPill": true,
+      "failureDetail": [
+        {
+          "intoRealm": "筑基初期",
+          "fromRealm": "炼气九层",
+          "baseChance": 0.75,
+          "effectiveChance": 0.9,
+          "sourceMinutes": 120.6,
+          "expectedExtraMinutes": 13.4
+        },
+        {
+          "intoRealm": "金丹初期",
+          "fromRealm": "筑基后期",
+          "baseChance": 0.7,
+          "effectiveChance": 0.85,
+          "sourceMinutes": 229.4,
+          "expectedExtraMinutes": 40.48
+        },
+        {
+          "intoRealm": "元婴初期",
+          "fromRealm": "金丹后期",
+          "baseChance": 0.65,
+          "effectiveChance": 0.8,
+          "sourceMinutes": 410,
+          "expectedExtraMinutes": 102.5
+        },
+        {
+          "intoRealm": "化神初期",
+          "fromRealm": "元婴后期",
+          "baseChance": 0.6,
+          "effectiveChance": 0.75,
+          "sourceMinutes": 744.1,
+          "expectedExtraMinutes": 248.03
+        },
+        {
+          "intoRealm": "炼虚期",
+          "fromRealm": "化神后期",
+          "baseChance": 0.4,
+          "effectiveChance": 0.55,
+          "sourceMinutes": 1272.2,
+          "expectedExtraMinutes": 1040.89
+        },
+        {
+          "intoRealm": "合体期",
+          "fromRealm": "炼虚期",
+          "baseChance": 0.35,
+          "effectiveChance": 0.5,
+          "sourceMinutes": 1632.4,
+          "expectedExtraMinutes": 1632.4
+        },
+        {
+          "intoRealm": "大乘期",
+          "fromRealm": "合体期",
+          "baseChance": 0.3,
+          "effectiveChance": 0.45,
+          "sourceMinutes": 2164.2,
+          "expectedExtraMinutes": 2645.13
+        },
+        {
+          "intoRealm": "渡劫期",
+          "fromRealm": "大乘期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 2828.7,
+          "expectedExtraMinutes": 4243.05
+        },
+        {
+          "intoRealm": "飞升成仙",
+          "fromRealm": "渡劫期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 3750.2,
+          "expectedExtraMinutes": 5625.3
+        }
+      ]
+    },
+    {
+      "config": "中配",
+      "rootMult": 1.8,
+      "techniqueMult": 2.2,
+      "caveMult": 1.7,
+      "sustainedMult": 6.732,
+      "totalMinutes": 2591.16,
+      "totalHours": 43.19,
+      "totalDays": 1.8,
+      "totalWithFailMinutes": 4907.14,
+      "totalWithFailHours": 81.79,
+      "usesBreakPill": true,
+      "failureDetail": [
+        {
+          "intoRealm": "筑基初期",
+          "fromRealm": "炼气九层",
+          "baseChance": 0.75,
+          "effectiveChance": 0.9,
+          "sourceMinutes": 120.6,
+          "expectedExtraMinutes": 13.4
+        },
+        {
+          "intoRealm": "金丹初期",
+          "fromRealm": "筑基后期",
+          "baseChance": 0.7,
+          "effectiveChance": 0.85,
+          "sourceMinutes": 229.4,
+          "expectedExtraMinutes": 40.48
+        },
+        {
+          "intoRealm": "元婴初期",
+          "fromRealm": "金丹后期",
+          "baseChance": 0.65,
+          "effectiveChance": 0.8,
+          "sourceMinutes": 410,
+          "expectedExtraMinutes": 102.5
+        },
+        {
+          "intoRealm": "化神初期",
+          "fromRealm": "元婴后期",
+          "baseChance": 0.6,
+          "effectiveChance": 0.75,
+          "sourceMinutes": 744.1,
+          "expectedExtraMinutes": 248.03
+        },
+        {
+          "intoRealm": "炼虚期",
+          "fromRealm": "化神后期",
+          "baseChance": 0.4,
+          "effectiveChance": 0.55,
+          "sourceMinutes": 1272.2,
+          "expectedExtraMinutes": 1040.89
+        },
+        {
+          "intoRealm": "合体期",
+          "fromRealm": "炼虚期",
+          "baseChance": 0.35,
+          "effectiveChance": 0.5,
+          "sourceMinutes": 1632.4,
+          "expectedExtraMinutes": 1632.4
+        },
+        {
+          "intoRealm": "大乘期",
+          "fromRealm": "合体期",
+          "baseChance": 0.3,
+          "effectiveChance": 0.45,
+          "sourceMinutes": 2164.2,
+          "expectedExtraMinutes": 2645.13
+        },
+        {
+          "intoRealm": "渡劫期",
+          "fromRealm": "大乘期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 2828.7,
+          "expectedExtraMinutes": 4243.05
+        },
+        {
+          "intoRealm": "飞升成仙",
+          "fromRealm": "渡劫期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 3750.2,
+          "expectedExtraMinutes": 5625.3
+        }
+      ]
+    },
+    {
+      "config": "高配",
+      "rootMult": 2.2,
+      "techniqueMult": 3.0,
+      "caveMult": 1.9,
+      "sustainedMult": 12.54,
+      "totalMinutes": 1391.04,
+      "totalHours": 23.18,
+      "totalDays": 0.97,
+      "totalWithFailMinutes": 2634.36,
+      "totalWithFailHours": 43.91,
+      "usesBreakPill": true,
+      "failureDetail": [
+        {
+          "intoRealm": "筑基初期",
+          "fromRealm": "炼气九层",
+          "baseChance": 0.75,
+          "effectiveChance": 0.9,
+          "sourceMinutes": 120.6,
+          "expectedExtraMinutes": 13.4
+        },
+        {
+          "intoRealm": "金丹初期",
+          "fromRealm": "筑基后期",
+          "baseChance": 0.7,
+          "effectiveChance": 0.85,
+          "sourceMinutes": 229.4,
+          "expectedExtraMinutes": 40.48
+        },
+        {
+          "intoRealm": "元婴初期",
+          "fromRealm": "金丹后期",
+          "baseChance": 0.65,
+          "effectiveChance": 0.8,
+          "sourceMinutes": 410,
+          "expectedExtraMinutes": 102.5
+        },
+        {
+          "intoRealm": "化神初期",
+          "fromRealm": "元婴后期",
+          "baseChance": 0.6,
+          "effectiveChance": 0.75,
+          "sourceMinutes": 744.1,
+          "expectedExtraMinutes": 248.03
+        },
+        {
+          "intoRealm": "炼虚期",
+          "fromRealm": "化神后期",
+          "baseChance": 0.4,
+          "effectiveChance": 0.55,
+          "sourceMinutes": 1272.2,
+          "expectedExtraMinutes": 1040.89
+        },
+        {
+          "intoRealm": "合体期",
+          "fromRealm": "炼虚期",
+          "baseChance": 0.35,
+          "effectiveChance": 0.5,
+          "sourceMinutes": 1632.4,
+          "expectedExtraMinutes": 1632.4
+        },
+        {
+          "intoRealm": "大乘期",
+          "fromRealm": "合体期",
+          "baseChance": 0.3,
+          "effectiveChance": 0.45,
+          "sourceMinutes": 2164.2,
+          "expectedExtraMinutes": 2645.13
+        },
+        {
+          "intoRealm": "渡劫期",
+          "fromRealm": "大乘期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 2828.7,
+          "expectedExtraMinutes": 4243.05
+        },
+        {
+          "intoRealm": "飞升成仙",
+          "fromRealm": "渡劫期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 3750.2,
+          "expectedExtraMinutes": 5625.3
+        }
+      ]
+    },
+    {
+      "config": "极限",
+      "rootMult": 2.5,
+      "techniqueMult": 4.0,
+      "caveMult": 2.0,
+      "sustainedMult": 20.0,
+      "totalMinutes": 872.19,
+      "totalHours": 14.54,
+      "totalDays": 0.61,
+      "totalWithFailMinutes": 1651.74,
+      "totalWithFailHours": 27.53,
+      "usesBreakPill": true,
+      "failureDetail": [
+        {
+          "intoRealm": "筑基初期",
+          "fromRealm": "炼气九层",
+          "baseChance": 0.75,
+          "effectiveChance": 0.9,
+          "sourceMinutes": 120.6,
+          "expectedExtraMinutes": 13.4
+        },
+        {
+          "intoRealm": "金丹初期",
+          "fromRealm": "筑基后期",
+          "baseChance": 0.7,
+          "effectiveChance": 0.85,
+          "sourceMinutes": 229.4,
+          "expectedExtraMinutes": 40.48
+        },
+        {
+          "intoRealm": "元婴初期",
+          "fromRealm": "金丹后期",
+          "baseChance": 0.65,
+          "effectiveChance": 0.8,
+          "sourceMinutes": 410,
+          "expectedExtraMinutes": 102.5
+        },
+        {
+          "intoRealm": "化神初期",
+          "fromRealm": "元婴后期",
+          "baseChance": 0.6,
+          "effectiveChance": 0.75,
+          "sourceMinutes": 744.1,
+          "expectedExtraMinutes": 248.03
+        },
+        {
+          "intoRealm": "炼虚期",
+          "fromRealm": "化神后期",
+          "baseChance": 0.4,
+          "effectiveChance": 0.55,
+          "sourceMinutes": 1272.2,
+          "expectedExtraMinutes": 1040.89
+        },
+        {
+          "intoRealm": "合体期",
+          "fromRealm": "炼虚期",
+          "baseChance": 0.35,
+          "effectiveChance": 0.5,
+          "sourceMinutes": 1632.4,
+          "expectedExtraMinutes": 1632.4
+        },
+        {
+          "intoRealm": "大乘期",
+          "fromRealm": "合体期",
+          "baseChance": 0.3,
+          "effectiveChance": 0.45,
+          "sourceMinutes": 2164.2,
+          "expectedExtraMinutes": 2645.13
+        },
+        {
+          "intoRealm": "渡劫期",
+          "fromRealm": "大乘期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 2828.7,
+          "expectedExtraMinutes": 4243.05
+        },
+        {
+          "intoRealm": "飞升成仙",
+          "fromRealm": "渡劫期",
+          "baseChance": 0.25,
+          "effectiveChance": 0.4,
+          "sourceMinutes": 3750.2,
+          "expectedExtraMinutes": 5625.3
+        }
+      ]
+    }
+  ],
+  "burst": [
+    {
+      "config": "白板",
+      "sustainedMult": 1.0,
+      "burstWorst": 1.2,
+      "burstBest": 6.0
+    },
+    {
+      "config": "轻氪",
+      "sustainedMult": 2.184,
+      "burstWorst": 2.62,
+      "burstBest": 13.1
+    },
+    {
+      "config": "中配",
+      "sustainedMult": 6.732,
+      "burstWorst": 8.08,
+      "burstBest": 40.39
+    },
+    {
+      "config": "高配",
+      "sustainedMult": 12.54,
+      "burstWorst": 15.05,
+      "burstBest": 75.24
+    },
+    {
+      "config": "极限",
+      "sustainedMult": 20.0,
+      "burstWorst": 24.0,
+      "burstBest": 120.0
+    }
+  ]
+}
